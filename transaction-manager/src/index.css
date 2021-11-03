@@ -8,6 +8,29 @@ body {
   background-color: #3DB2FF;
 }
 
+#def_background {
+  background-color: #FFEDDA;
+  border-radius: 1rem;
+}
+
+.login_form {
+  margin-top: 10%;
+  padding: 2rem;
+  padding-bottom: 15rem;
+}
+
+#def_btn{
+  background-color: #FF2442;
+  color: black;
+}
+
+#form_box {
+  background-color: #FFB830;
+  color: black;
+  width: 25rem;
+  margin-bottom: 1.5rem;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
