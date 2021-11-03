@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const Login = (props) => {
 
-    const [loginValues, setLogin] = useState({"email": null, "password": null})
+    const [loginValues, setLogin] = useState({"username": null, "password": null})
 
     const handleChange = (event) => {
         setLogin(prevstate => ({
@@ -13,8 +13,11 @@ const Login = (props) => {
         }));
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        props.loginUser(loginValues)
         console.log(loginValues)
+        // window.location = '/'
     }
 
     return ( 
@@ -27,12 +30,12 @@ const Login = (props) => {
                     <div id = "login_form">
                         <Form onSubmit = {handleSubmit}>
                             <FormGroup controlId = "loginFormEmail">
-                                <FormLabel>Email Address</FormLabel>
-                                <FormControl id = "form_box" type = "email" placeholder = "johndoe123@example.com" />
+                                <FormLabel>Username</FormLabel>
+                                <FormControl className = "form_box" type = "text" name = "username" placeholder = "johndoe123" onChange = {handleChange}/>
                             </FormGroup>
                             <FormGroup controlId = "loginFormPassword">
                                 <FormLabel>Password</FormLabel>
-                                <FormControl  id = "form_box" type = "password" placeholder = "Shhhh this is a secret" />
+                                <FormControl  className = "form_box" type = "password" name = "password" placeholder = "Shhhh this is a secret" onChange = {handleChange} />
                             </FormGroup>
                             <Button type = "submit" variant="danger" id = "def_btn">Log In</Button>
                         </Form>

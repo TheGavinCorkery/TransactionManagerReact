@@ -24,7 +24,7 @@ body {
   color: black;
 }
 
-#form_box {
+.form_box {
   background-color: #FFB830;
   color: black;
   width: 25rem;
