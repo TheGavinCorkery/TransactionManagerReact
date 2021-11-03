@@ -5,9 +5,9 @@ import '../../App.css'
 
 const Home = (props) => {
     return ( 
-        <div className="container-fluid">
+        <div className="container">
             <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-8 col-sm-12">
                     <img src= {WelcomePhoto} alt="Snowy mountains" className = "welcome_photo" align = "left"/>
                 </div>
                 <div className="col-md-4"  id = "welcome_text" align = "left">
