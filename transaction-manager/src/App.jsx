@@ -19,7 +19,6 @@ function App() {
   const registerURL = 'http://127.0.0.1:8000/api/auth/register/'
 
   useEffect(() => {
-  
     if (localStorage.getItem('token')){
       getUserInfo()
     }
@@ -89,7 +88,9 @@ function App() {
           }}
            />
         </Switch>
-    </div>): <div className="App">
+    </div>)
+    : 
+    (<div className="App">
         <Navbar logoutUser = {logoutUser}/>
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
@@ -108,7 +109,7 @@ function App() {
           }}
            />
         </Switch>
-    </div>
+    </div>)
    
   );
 }
