@@ -37,7 +37,7 @@ const RecentTransactions = (props) => {
             </thead>
             <tbody>
                 {transactions.map((transaction) => {
-                    return  <tr>
+                    return  <tr key = {transaction.id}>
                             <td>{transaction.date}</td>
                             <td>{transaction.place}</td>
                             <td>{transaction.category}</td>

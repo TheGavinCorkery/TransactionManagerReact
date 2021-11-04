@@ -44,10 +44,6 @@ const LoggedHome = (props) => {
         (<div className="container">
             <h1>User: {user.user_id}</h1>
             <div>
-                <p>User Ledgers:</p>
-                {userLedgers.map((ledger) => {
-                    return <p>{ledger.name} {ledger.total}</p>
-                })}
                 <p>User Transactions:</p>
                 <RecentTransactions />
             </div>
