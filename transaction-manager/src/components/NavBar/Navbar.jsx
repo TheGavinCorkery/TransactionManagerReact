@@ -1,11 +1,27 @@
-import React, { useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import './Navbar.css'
+import jwtDecode from 'jwt-decode'
 import { useUser, UserContext } from '../../UserContext'
 
 const Navbar = (props) => {
 
-    const {user, setUser} = useContext(UserContext)
+    const [user, setUser] = useState(null)
+    useEffect(() => {
+        if (localStorage.getItem('token')){
+          getUserInfo()
+        }
+        console.log(user)
+      }, [])
+    const getUserInfo = () => {
+        const jwt = localStorage.getItem('token')
+        try{
+          const userInfo = jwtDecode(jwt)
+          setUser(userInfo)
+        }catch(err){
+          console.log("🚀 ~ file: App.jsx ~ line 31 ~ getUserInfo ~ err", err)
+        }
+      }
 
     return (
         <div className="row navbar">
