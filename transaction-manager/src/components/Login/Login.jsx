@@ -14,10 +14,9 @@ const Login = (props) => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         props.loginUser(loginValues)
-        console.log(loginValues)
-        // window.location = '/'
+        window.location = '/'
     }
 
     return ( 
