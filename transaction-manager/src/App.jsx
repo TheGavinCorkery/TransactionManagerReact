@@ -6,8 +6,9 @@ import Navbar from './components/NavBar/Navbar';
 import Login from './components/Login/Login'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
-import {  UserProvider, UserContext } from './UserContext'
+// import {  UserProvider, UserContext } from './UserContext'
 import LoggedHome from './components/LoggedHome/LoggedHome';
+import Register from './components/Register/Register';
 
 function App() {
 
@@ -15,20 +16,32 @@ function App() {
   const [dataReady, setReady] = useState(false)
 
   const loginURL = 'http://127.0.0.1:8000/api/auth/login/'
+  const registerURL = 'http://127.0.0.1:8000/api/auth/register/'
 
   useEffect(() => {
   
     if (localStorage.getItem('token')){
       getUserInfo()
     }
-    console.log(user)
   }, [])
+
+  const registerUser = async(registerInfo) => {
+    try{
+      console.log(registerInfo)
+      debugger
+      await axios.post(registerURL, registerInfo)
+      loginUser({'username': registerInfo.username, 'password': registerInfo.password})
+    }catch (err){
+      console.log("🚀 ~ file: App.jsx ~ line 32 ~ registerUser ~ err", err)
+    }
+  }
 
   const loginUser = async(loginInfo) => {
     try{
       let userInfo = await axios.post(loginURL, loginInfo)
       localStorage.setItem('token', userInfo.data.access)
       getUserInfo();
+      window.location = '/home'
     } catch(err){
       console.log("🚀 ~ file: App.jsx ~ line 22 ~ loginUser ~ err", err)
     }
@@ -38,6 +51,7 @@ function App() {
     try{
       localStorage.removeItem('token')
       setUser(null);
+      window.location = "/"
     }catch(err){
       console.log("🚀 ~ file: App.jsx ~ line 36 ~ logoutUser ~ err", err)
     }
@@ -61,7 +75,8 @@ function App() {
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
           <Route path = "/login" render = {props => <Login {...props} loginUser = {loginUser}/>} />
-          <Route path = "/LandingPage" render ={props => <LoggedHome/>}/>
+          <Route path = "/register" render = {props => <Register />} />
+          <Route path = "/LandingPage" render ={props => <LoggedHome user = {user} />}/>
           <Route 
           path= "/home"
           render = {props => {
@@ -79,7 +94,8 @@ function App() {
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
           <Route path = "/login" render = {props => <Login {...props} loginUser = {loginUser}/>} />
-          <Route path = "/LandingPage" render ={props => <LoggedHome/>}/>
+          <Route path = "/register" render = {props => <Register registerUser = {registerUser} />} />
+          <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} />}/>
           <Route 
           path= "/home"
           render = {props => {

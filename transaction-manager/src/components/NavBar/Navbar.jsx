@@ -11,7 +11,6 @@ const Navbar = (props) => {
         if (localStorage.getItem('token')){
           getUserInfo()
         }
-        console.log(user)
       }, [])
     const getUserInfo = () => {
         const jwt = localStorage.getItem('token')
@@ -28,17 +27,20 @@ const Navbar = (props) => {
             <div className="col-lg-8"></div>
             <div className="col-lg-4" align = "center">
                 <ul>
-                    <Link to = '/' className = "nav-item">
-                            <li>Home</li>
-                    </Link>
                     {user ? 
                     
                     <React.Fragment>
+                        <Link to = '/LandingPage' className = "nav-item">
+                              <li>Home</li>
+                        </Link>
                         <a onClick = {props.logoutUser} className='nav-item'> Log Out</a>
                     </React.Fragment>
                     
                     :
                     <React.Fragment>
+                        <Link to = '/' className = "nav-item">
+                              <li>Home</li>
+                        </Link>
                         <Link to = '/login' className = "nav-item">
                             <li>Log In</li>
                         </Link>
