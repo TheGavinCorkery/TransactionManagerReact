@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode'
 import RecentTransactions from '../RecentTransactions/RecentTransactions'
 import LedgerSideBar from '../../LedgerSidebar/LedgerSidebar'
+import NewLedger from '../NewLedger/NewLedger'
 
 const LoggedHome = (props) => {
 
@@ -19,6 +20,17 @@ const LoggedHome = (props) => {
           getUserTransactions()
         }
       }, [])
+
+      const createLedger = async(ledgerValues) => {
+        debugger
+        const jwt = localStorage.getItem('token')
+        try{
+          await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, {headers: {'Authorization': 'Bearer ' + jwt}} )
+          getUserLedgers();
+        }catch(err){
+
+        }
+      }
 
       const getUserTransactions = async() => {
         const jwt = localStorage.getItem('token')
@@ -54,6 +66,8 @@ const LoggedHome = (props) => {
     return (
         dataReady ?
         (<div className="container">
+
+          {props.modalShow && <NewLedger newLedger = {createLedger} showModal = {props.modalShow} toggleModal = {props.toggleModal} />}
             <h1>User: {user.user_id}</h1>
             <div>
                 <p>User Transactions:</p>

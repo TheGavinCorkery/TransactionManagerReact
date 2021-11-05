@@ -14,6 +14,7 @@ function App() {
 
   const [user, setUser] = useState(null)
   const [dataReady, setReady] = useState(false)
+  const [modalShow, setModal] = useState(false)
 
   const loginURL = 'http://127.0.0.1:8000/api/auth/login/'
   const registerURL = 'http://127.0.0.1:8000/api/auth/register/'
@@ -23,6 +24,10 @@ function App() {
       getUserInfo()
     }
   }, [])
+
+  const toggleLedgerModal = () => {
+    setModal(!modalShow);
+  }
 
   const registerUser = async(registerInfo) => {
     try{
@@ -70,12 +75,12 @@ function App() {
   return (
     dataReady  ?
        (<div className="App">
-        <Navbar logoutUser = {logoutUser}/>
+        <Navbar logoutUser = {logoutUser} toggleLedgerModal = {toggleLedgerModal} />
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
           <Route path = "/login" render = {props => <Login {...props} loginUser = {loginUser}/>} />
           <Route path = "/register" render = {props => <Register {...props} />} />
-          <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} />}/>
+          <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} modalShow = {modalShow} toggleModal = {toggleLedgerModal} />}/>
           <Route 
           path= "/home"
           render = {props => {

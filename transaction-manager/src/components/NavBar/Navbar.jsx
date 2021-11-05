@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import './Navbar.css'
 import jwtDecode from 'jwt-decode'
-import { useUser, UserContext } from '../../UserContext'
 
 const Navbar = (props) => {
 
@@ -33,6 +32,7 @@ const Navbar = (props) => {
                         <Link to = '/LandingPage' className = "nav-item">
                               <li>Home</li>
                         </Link>
+                        <a onClick = {props.toggleLedgerModal} className='nav-item'>New Ledger</a>
                         <a onClick = {props.logoutUser} className='nav-item'> Log Out</a>
                     </React.Fragment>
                     
