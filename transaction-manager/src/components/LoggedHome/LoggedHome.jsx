@@ -2,8 +2,9 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode'
 import RecentTransactions from '../RecentTransactions/RecentTransactions'
-import LedgerSideBar from '../../LedgerSidebar/LedgerSidebar'
+import LedgerSideBar from '../LedgerSidebar/LedgerSidebar'
 import NewLedger from '../NewLedger/NewLedger'
+import UpdateTransModal from '../UpdateTransModal/UpdateTransModal'
 
 const LoggedHome = (props) => {
 
@@ -12,6 +13,7 @@ const LoggedHome = (props) => {
     const [user, setUser] = useState(null)
     const [dataReady, setReady] = useState(false)
     const [transactions, setTransactions] = useState(null)
+    const [clickedTrans, setClickedTrans] = useState(null)
 
     useEffect(() => {
         if (localStorage.getItem('token')){
@@ -28,7 +30,7 @@ const LoggedHome = (props) => {
           await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, {headers: {'Authorization': 'Bearer ' + jwt}} )
           getUserLedgers();
         }catch(err){
-
+          console.log("🚀 ~ file: LoggedHome.jsx ~ line 31 ~ createLedger ~ err", err)
         }
       }
 
@@ -63,20 +65,28 @@ const LoggedHome = (props) => {
         }
     }
 
+    const setClickedTransaction = (trans) => {
+      setClickedTrans(trans)
+    }
+
     return (
         dataReady ?
-        (<div className="container">
-
+        (<>
+        {props.showModal && <UpdateTransModal clickedTrans = {clickedTrans} showModal = {props.showUpdateModal} toggleModal = {props.toggleUpdateModal} transaction = {clickedTrans}/>}
+        <div className="container-fluid">
           {props.modalShow && <NewLedger newLedger = {createLedger} showModal = {props.modalShow} toggleModal = {props.toggleModal} />}
-            <h1>User: {user.user_id}</h1>
-            <div>
-                <p>User Transactions:</p>
-                <RecentTransactions transactions = {transactions} />
+          <div className="row">
+            <div className = "col-lg-8">
+                <RecentTransactions transactions = {transactions} setClickedTrans = {setClickedTransaction} toggleModal = {props.toggleUpdateModal} />
+            </div>
+            <div className="col-lg-4">
                 <LedgerSideBar ledgers = {userLedgers} transactions = {transactions}/>
             </div>
-        </div>)
+            </div>
+        </div>
+        </>)
         :
-        null
+        (null)
      );
 }
  

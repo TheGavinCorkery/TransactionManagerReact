@@ -4,6 +4,13 @@ import {Table} from 'react-bootstrap'
 
 const RecentTransactions = (props) => {
 
+    const handleClick = (trans) => {
+        props.setClickedTrans(trans)
+        props.toggleModal()
+        // props.toggleModal()
+        console.log(trans)
+    }
+
     return (
         <Table striped border hover id = "def_background">
             <thead>
@@ -16,7 +23,7 @@ const RecentTransactions = (props) => {
             </thead>
             <tbody>
                 {props.transactions.map((transaction) => {
-                    return  <tr key = {transaction.id}>
+                    return  <tr key = {transaction.id} onClick = {() => handleClick(transaction)}>
                             <td>{transaction.date}</td>
                             <td>{transaction.place}</td>
                             <td>{transaction.category}</td>
