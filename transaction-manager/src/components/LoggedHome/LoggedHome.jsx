@@ -14,6 +14,10 @@ const LoggedHome = (props) => {
     const [dataReady, setReady] = useState(false)
     const [transactions, setTransactions] = useState(null)
     const [clickedTrans, setClickedTrans] = useState(null)
+    const [showUpdateModal, setUpdateModal] = useState(false)
+
+    const jwt = localStorage.getItem('token')
+    const authHeader = {headers: {'Authorization': 'Bearer ' + jwt}}
 
     useEffect(() => {
         if (localStorage.getItem('token')){
@@ -24,45 +28,53 @@ const LoggedHome = (props) => {
       }, [])
 
       const createLedger = async(ledgerValues) => {
-        debugger
-        const jwt = localStorage.getItem('token')
         try{
-          await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, {headers: {'Authorization': 'Bearer ' + jwt}} )
+          await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, authHeader )
           getUserLedgers();
         }catch(err){
-          console.log("🚀 ~ file: LoggedHome.jsx ~ line 31 ~ createLedger ~ err", err)
+          console.log("🚀 ~ file: LoggedHome.jsx ~ line 28 ~ createLedger ~ err", err)
         }
       }
 
       const getUserTransactions = async() => {
-        const jwt = localStorage.getItem('token')
         try{
-            let transactions = await axios.get('http://127.0.0.1:8000/api/transactions/', {headers: {'Authorization': 'Bearer ' + jwt}})
+            let transactions = await axios.get('http://127.0.0.1:8000/api/transactions/', authHeader)
             setTransactions(transactions.data)
             setReady(true)
         }catch (err){
-            console.log("🚀 ~ file: LoggedHome.jsx ~ line 39 ~ getUserTransactions ~ err", err)
+            console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
         }
     }
 
     const getUserInfo = () => {
-      const jwt = localStorage.getItem('token')
       try{
         const userInfo = jwtDecode(jwt)
         setUser(userInfo)
       }catch(err){
-        console.log("🚀 ~ file: App.jsx ~ line 31 ~ getUserInfo ~ err", err)
+        console.log("🚀 ~ file: App.jsx ~ line 47 ~ getUserInfo ~ err", err)
       }
     }
 
     const getUserLedgers = async() => {
         try{
-            const jwt = localStorage.getItem('token')
-            let response = await axios.get('http://127.0.0.1:8000/api/ledgers/', {headers: {'Authorization': 'Bearer ' + jwt}})
+            let response = await axios.get('http://127.0.0.1:8000/api/ledgers/', authHeader)
             setUserLedgers(response.data)
         }catch(err) {
-            console.log("🚀 ~ file: LoggedHome.jsx ~ line 13 ~ getUserLedgers ~ err", err)
+            console.log("🚀 ~ file: LoggedHome.jsx ~ line 56 ~ getUserLedgers ~ err", err)
         }
+    }
+
+    const updateTrans = async(transInfo) => {
+      try {
+        await axios.put('http://127.0.0.1:8000/api/transactions/transaction/edit', transInfo, authHeader)
+        getUserTransactions()
+      }catch (err) {
+        console.log("🚀 ~ file: LoggedHome.jsx ~ line 65 ~ updateTrans ~ err", err) 
+      }
+    } 
+
+    const toggleUpdateModal = () => {
+      setUpdateModal(!showUpdateModal)
     }
 
     const setClickedTransaction = (trans) => {
@@ -71,20 +83,19 @@ const LoggedHome = (props) => {
 
     return (
         dataReady ?
-        (<>
-        {props.showModal && <UpdateTransModal clickedTrans = {clickedTrans} showModal = {props.showUpdateModal} toggleModal = {props.toggleUpdateModal} transaction = {clickedTrans}/>}
+        (
         <div className="container-fluid">
+        {showUpdateModal && <UpdateTransModal updateTrans = {updateTrans} clickedTrans = {clickedTrans} showModal = {showUpdateModal} toggleModal = {toggleUpdateModal} transaction = {clickedTrans}/>}
           {props.modalShow && <NewLedger newLedger = {createLedger} showModal = {props.modalShow} toggleModal = {props.toggleModal} />}
           <div className="row">
             <div className = "col-lg-8">
-                <RecentTransactions transactions = {transactions} setClickedTrans = {setClickedTransaction} toggleModal = {props.toggleUpdateModal} />
+                <RecentTransactions transactions = {transactions} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />
             </div>
             <div className="col-lg-4">
                 <LedgerSideBar ledgers = {userLedgers} transactions = {transactions}/>
             </div>
             </div>
-        </div>
-        </>)
+        </div>)
         :
         (null)
      );

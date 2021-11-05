@@ -15,7 +15,6 @@ function App() {
   const [user, setUser] = useState(null)
   const [dataReady, setReady] = useState(false)
   const [modalShow, setModal] = useState(false)
-  const [showUpdateModal, setUpdateModal] = useState(false)
   
 
   const loginURL = 'http://127.0.0.1:8000/api/auth/login/'
@@ -74,12 +73,6 @@ function App() {
     }
   }
 
-  const toggleUpdateModal = () => {
-    setUpdateModal(!showUpdateModal)
-    console.log("Hello from toggleUpdateModal")
-    console.log(showUpdateModal)
-  }
-
   return (
     dataReady  ?
        (<div className="App">
@@ -89,8 +82,8 @@ function App() {
           <Route path = "/login" render = {props => <Login {...props} loginUser = {loginUser}/>} />
           <Route path = "/register" render = {props => <Register {...props} />} />
 
-          <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} toggleUpdateModal = {toggleUpdateModal}
-           modalShow = {modalShow} showUpdateModal = {showUpdateModal} toggleModal = {toggleLedgerModal} />}/>
+          <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} 
+           modalShow = {modalShow} toggleModal = {toggleLedgerModal} />}/>
 
           <Route 
           path= "/home"

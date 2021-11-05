@@ -7,8 +7,6 @@ const RecentTransactions = (props) => {
     const handleClick = (trans) => {
         props.setClickedTrans(trans)
         props.toggleModal()
-        // props.toggleModal()
-        console.log(trans)
     }
 
     return (
