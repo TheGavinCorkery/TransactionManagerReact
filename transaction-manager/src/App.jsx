@@ -74,8 +74,8 @@ function App() {
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
           <Route path = "/login" render = {props => <Login {...props} loginUser = {loginUser}/>} />
-          <Route path = "/register" render = {props => <Register />} />
-          <Route path = "/LandingPage" render ={props => <LoggedHome user = {user} />}/>
+          <Route path = "/register" render = {props => <Register {...props} />} />
+          <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} />}/>
           <Route 
           path= "/home"
           render = {props => {
@@ -95,7 +95,7 @@ function App() {
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
           <Route path = "/login" render = {props => <Login {...props} loginUser = {loginUser}/>} />
-          <Route path = "/register" render = {props => <Register registerUser = {registerUser} />} />
+          <Route path = "/register" render = {props => <Register {...props} registerUser = {registerUser} />} />
           <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} />}/>
           <Route 
           path= "/home"
