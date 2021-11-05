@@ -1,21 +1,22 @@
 import React from 'react'
 import WelcomePhoto from '../Images/WelcomePhoto.jpeg'
+import {Row, Col} from 'react-bootstrap'
 import './Home.css'
 import '../../App.css'
 
 const Home = (props) => {
     return ( 
-        <div className="container">
-            <div className="row">
-                <div className="col-md-8 col-sm-12">
+        <div className="container-fluid">
+            <Row>
+                <div className="col-lg-8">
                     <img src= {WelcomePhoto} alt="Snowy mountains" className = "welcome_photo" align = "left"/>
                 </div>
-                <div className="col-md-4"  id = "welcome_text" align = "left">
+                <div className="col-lg-4"  id = "welcome_text" align = "left">
                     <h1>Welcome to Transaction Tracker</h1>
                     <h3>New here? <a href="/register">Sign up</a></h3>
                     <h3>Already a tracker? <a href = "/login">Log In!</a></h3>
                 </div>
-            </div>
+            </Row>
         </div>
      );
 }

@@ -1,6 +1,7 @@
 .welcome_photo {
     margin-top: 2rem;
-    margin-left: 4rem;
+    height: 100%;
+    width: 100%;
     border-radius: 2rem;
     border: 1rem solid #FFB830;
 }
