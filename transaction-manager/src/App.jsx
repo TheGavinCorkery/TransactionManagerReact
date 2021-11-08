@@ -9,12 +9,14 @@ import jwtDecode from 'jwt-decode'
 // import {  UserProvider, UserContext } from './UserContext'
 import LoggedHome from './components/LoggedHome/LoggedHome';
 import Register from './components/Register/Register';
+import CategoryOverview from './components/CategoryOverview/CategoryOverview';
 
 function App() {
 
   const [user, setUser] = useState(null)
   const [dataReady, setReady] = useState(false)
   const [modalShow, setModal] = useState(false)
+  const [categoryView, setCategory] = useState(null)
   
 
   const loginURL = 'http://127.0.0.1:8000/api/auth/login/'
@@ -73,6 +75,10 @@ function App() {
     }
   }
 
+  const setCategoryView = (category, ledger) => {
+    setCategory({'category': category, 'ledger_id': ledger})
+  }
+
   return (
     dataReady  ?
        (<div className="App">
@@ -83,8 +89,9 @@ function App() {
           <Route path = "/register" render = {props => <Register {...props} />} />
 
           <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} 
-           modalShow = {modalShow} toggleModal = {toggleLedgerModal} />}/>
+           modalShow = {modalShow} toggleModal = {toggleLedgerModal} setCategory = {setCategoryView}/>}/>
 
+          <Route path = "/category_view" render = {props => <CategoryOverview {...props} category = {categoryView} />} />
           <Route 
           path= "/home"
           render = {props => {

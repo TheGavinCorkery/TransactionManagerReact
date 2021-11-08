@@ -4,6 +4,7 @@ import AccordionItem from 'react-bootstrap/esm/AccordionItem'
 import Accordion from 'react-bootstrap/esm/Accordion'
 import AccordionBody from 'react-bootstrap/esm/AccordionBody'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const LedgerSideBar = (props) => {
 
@@ -35,7 +36,7 @@ const LedgerSideBar = (props) => {
                                 <Accordion.Header>{ledger.ledger_name} | {ledger.total}</Accordion.Header>      
                                 {props.categories.map((transaction) =>{
                                     if (transaction.ledger_id == ledger.ledger_id){
-                                        return <Accordion.Body>{transaction.category}   | {transaction.total}</Accordion.Body>
+                                        return <Accordion.Body><Link to = '/category_view'><a onClick = {() => props.setCategory(transaction.category, ledger.ledger_id)}>{transaction.category}   | {transaction.total}</a></Link></Accordion.Body>
                                     }
                                 })}
                             </Accordion.Item>

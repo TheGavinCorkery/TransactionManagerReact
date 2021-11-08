@@ -116,7 +116,7 @@ const LoggedHome = (props) => {
           
             </div>
             <div className="col-lg-4">
-                <LedgerSideBar categories = {userCategories} auth = {authHeader} />
+                <LedgerSideBar categories = {userCategories} auth = {authHeader} setCategory = {props.setCategory} />
             </div>
             </div>
         </div>)
