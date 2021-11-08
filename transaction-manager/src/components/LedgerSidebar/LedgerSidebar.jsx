@@ -28,7 +28,7 @@ const LedgerSideBar = (props) => {
 
     return (
         dataReady ? 
-            (<Accordion id = "def_background">
+            (<div id = "def_background"><Accordion id = "def_background">
                 {userLedgers.map((ledger) =>{
                     return  <Accordion.Item>
                                 <Accordion.Header>{ledger.ledger_name} | {ledger.total}</Accordion.Header>      
@@ -39,7 +39,7 @@ const LedgerSideBar = (props) => {
                                 })}
                             </Accordion.Item>
                 })}
-            </Accordion>)
+            </Accordion></div>)
      : null
      );
 }

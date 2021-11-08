@@ -110,16 +110,16 @@ const LoggedHome = (props) => {
           <div className="row">
             <div className = "col-lg-8">
                 <RecentTransactions transactions = {transactions} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />
+            
+            <div className="col-lg-8">
+              <QuickAdd createTransaction = {newTransaction} ledgers = {userLedgers}/>
+            </div>
+          
             </div>
             <div className="col-lg-4">
                 <LedgerSideBar categories = {userCategories} auth = {authHeader} />
             </div>
             </div>
-          <div className="row">
-            <div className="col-lg-6">
-              <QuickAdd createTransaction = {newTransaction} ledgers = {userLedgers}/>
-            </div>
-          </div>
         </div>)
         :
         (null)

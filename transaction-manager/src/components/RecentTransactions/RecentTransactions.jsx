@@ -4,13 +4,20 @@ import {Table} from 'react-bootstrap'
 
 const RecentTransactions = (props) => {
 
+    const [dataReady, setData] = useState(false)
+
     const handleClick = (trans) => {
         props.setClickedTrans(trans)
         props.toggleModal()
     }
 
+    useEffect(() => {
+        setData(true)
+      }, [])
+
     return (
-        <Table striped border hover id = "def_background">
+        dataReady?
+        (<Table striped border hover id = "def_background">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -30,6 +37,8 @@ const RecentTransactions = (props) => {
                 })}
             </tbody>
         </Table>)
+        :null
+    )
 }
  
 export default RecentTransactions;

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, FormGroup, FormLabel, FormControl, Button, Row, Col } from 'react-bootstrap'
 import FormSelect from 'react-bootstrap/FormSelect'
 import  FloatingLabel  from 'react-bootstrap/FloatingLabel'
 
 const QuickAdd = (props) => {
 
+    const [dataReady, setData] = useState(false)
     const [transData, setTransData] = useState({
                                                 'date': null,
                                                 'place': null,
@@ -27,8 +28,13 @@ const QuickAdd = (props) => {
         setTransData(null);
     }
 
+    useEffect(() => {
+        setData(true)
+      }, [])
+
     return ( 
-        <div id = "def_background" align = "center">
+        dataReady ?
+        (<div id = "def_background" align = "center">
             <Form id = "quick_add_form" onSubmit = {handleSubmit}>
                 <h3>New Transaction</h3>
                 <hr />
@@ -87,7 +93,8 @@ const QuickAdd = (props) => {
                     <Button type = "submit" variant="danger" id = "def_btn">Create Transaction</Button>
                 </Row>
             </Form>
-        </div>
+        </div>)
+        : null
      );
 }
  
