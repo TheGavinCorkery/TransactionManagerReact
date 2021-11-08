@@ -30,16 +30,14 @@ const LedgerSideBar = (props) => {
         dataReady ? 
             (<Accordion id = "def_background">
                 {userLedgers.map((ledger) =>{
-                    return  <span>
-                                <AccordionHeader>{ledger.ledger_name} | {ledger.total}</AccordionHeader>
-                                <AccordionBody>        
+                    return  <Accordion.Item>
+                                <Accordion.Header>{ledger.ledger_name} | {ledger.total}</Accordion.Header>      
                                 {props.categories.map((transaction) =>{
                                     if (transaction.ledger_id == ledger.ledger_id){
-                                        return <AccordionItem>{transaction.category}   | {transaction.total}</AccordionItem>
+                                        return <Accordion.Body>{transaction.category}   | {transaction.total}</Accordion.Body>
                                     }
                                 })}
-                                </AccordionBody>
-                            </span>
+                            </Accordion.Item>
                 })}
             </Accordion>)
      : null

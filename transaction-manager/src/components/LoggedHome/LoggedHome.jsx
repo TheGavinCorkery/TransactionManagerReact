@@ -5,6 +5,7 @@ import RecentTransactions from '../RecentTransactions/RecentTransactions'
 import LedgerSideBar from '../LedgerSidebar/LedgerSidebar'
 import NewLedger from '../NewLedger/NewLedger'
 import UpdateTransModal from '../UpdateTransModal/UpdateTransModal'
+import QuickAdd from '../QuickAdd/QuickAdd'
 
 const LoggedHome = (props) => {
 
@@ -89,7 +90,16 @@ const LoggedHome = (props) => {
       }catch (err){
         console.log("🚀 ~ file: LoggedHome.jsx ~ line 89 ~ getUserSidebar ~ err", err)
       }
-    } 
+    }
+
+    const newTransaction = async(transInfo) => {
+      try{
+        await axios.post('http://127.0.0.1:8000/api/transactions/', transInfo ,authHeader)
+        dataReady(false)
+      }catch (err) {
+        console.log("🚀 ~ file: LoggedHome.jsx ~ line 99 ~ newTransaction ~ err", err)
+      }
+    }
 
     return (
         dataReady ?
@@ -102,9 +112,14 @@ const LoggedHome = (props) => {
                 <RecentTransactions transactions = {transactions} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />
             </div>
             <div className="col-lg-4">
-                <LedgerSideBar ledgers = {userLedgers} categories = {userCategories} auth = {authHeader} />
+                <LedgerSideBar categories = {userCategories} auth = {authHeader} />
             </div>
             </div>
+          <div className="row">
+            <div className="col-lg-6">
+              <QuickAdd createTransaction = {newTransaction} ledgers = {userLedgers}/>
+            </div>
+          </div>
         </div>)
         :
         (null)
