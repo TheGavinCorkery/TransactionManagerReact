@@ -24,6 +24,7 @@ const LoggedHome = (props) => {
           getUserInfo()
           getUserLedgers()
           getUserTransactions()
+          getUserSidebar()
         }
       }, [])
 
@@ -40,7 +41,6 @@ const LoggedHome = (props) => {
         try{
             let transactions = await axios.get('http://127.0.0.1:8000/api/transactions/', authHeader)
             setTransactions(transactions.data)
-            setReady(true)
         }catch (err){
             console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
         }
@@ -81,6 +81,16 @@ const LoggedHome = (props) => {
       setClickedTrans(trans)
     }
 
+    const getUserSidebar = async() => {
+      try {
+        let response = await axios.get('http://127.0.0.1:8000/api/transactions/ledgers/list', authHeader)
+        setUserCategories(response.data);
+        setReady(true)
+      }catch (err){
+        console.log("🚀 ~ file: LoggedHome.jsx ~ line 89 ~ getUserSidebar ~ err", err)
+      }
+    } 
+
     return (
         dataReady ?
         (
@@ -92,7 +102,7 @@ const LoggedHome = (props) => {
                 <RecentTransactions transactions = {transactions} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />
             </div>
             <div className="col-lg-4">
-                <LedgerSideBar ledgers = {userLedgers} transactions = {transactions}/>
+                <LedgerSideBar ledgers = {userLedgers} categories = {userCategories} auth = {authHeader} />
             </div>
             </div>
         </div>)
