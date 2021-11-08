@@ -95,7 +95,6 @@ const LoggedHome = (props) => {
     const newTransaction = async(transInfo) => {
       try{
         await axios.post('http://127.0.0.1:8000/api/transactions/', transInfo ,authHeader)
-        dataReady(false)
       }catch (err) {
         console.log("🚀 ~ file: LoggedHome.jsx ~ line 99 ~ newTransaction ~ err", err)
       }

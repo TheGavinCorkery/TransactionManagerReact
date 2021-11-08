@@ -2,20 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { Form, FormGroup, FormLabel, FormControl, Button, Row, Col } from 'react-bootstrap'
 import FormSelect from 'react-bootstrap/FormSelect'
 import  FloatingLabel  from 'react-bootstrap/FloatingLabel'
+import './QuickAdd.css'
 
 const QuickAdd = (props) => {
 
     const [dataReady, setData] = useState(false)
     const [transData, setTransData] = useState({
-                                                'date': null,
-                                                'place': null,
-                                                'total': null,
-                                                'description': null,
-                                                'category': null,
-                                                'ledger': null
+                                                'date': '',
+                                                'place': '',
+                                                'total': '',
+                                                'description': '',
+                                                'category': '',
+                                                'ledger': '',
                                             })
 
     const handleChange = (event) => {
+        console.log(event.target.value)
         setTransData(prevstate => ({
             ...prevstate,
             [event.target.name]: event.target.value
@@ -24,12 +26,14 @@ const QuickAdd = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(props.ledgers[0].id)
         props.createTransaction(transData);
-        setTransData(null);
+        setTransData({'date': '', 'place': '', 'total': '', 'description': '', 'category': '', 'ledger': ''});
     }
 
     useEffect(() => {
         setData(true)
+        setTransData({'date': '', 'place': '', 'total': '', 'description': '', 'category': '', 'ledger': props.ledgers[0].id})
       }, [])
 
     return ( 
@@ -42,12 +46,12 @@ const QuickAdd = (props) => {
 
                     <FormGroup as = {Col}>
                         <FormLabel>Place</FormLabel>
-                        <FormControl className = "form_box" type = "text" name = "place" placeholder = "Where did you spend money?" onChange = {handleChange}/>
+                        <FormControl className = "form_box" value = {transData.place} type = "text" name = "place" placeholder = "Where did you spend money?" onChange = {handleChange}/>
                     </FormGroup>
                 
                     <FormGroup as = {Col}>
                         <FormLabel>Total</FormLabel>
-                        <FormControl className = "form_box" type = "text" name = "total" placeholder = "$..." onChange = {handleChange}/>
+                        <FormControl className = "form_box" value = {transData.total} type = "text" name = "total" placeholder = "$..." onChange = {handleChange}/>
                     </FormGroup> 
 
                 </Row>
@@ -55,12 +59,12 @@ const QuickAdd = (props) => {
                     
                     <FormGroup as = {Col}>
                         <FormLabel>Description</FormLabel>
-                        <FormControl className = "form_box" type = "text" name = "description" placeholder = "What is this for?" onChange = {handleChange}/>
+                        <FormControl className = "form_box" type = "text"  value = {transData.description} name = "description" placeholder = "What is this for?" onChange = {handleChange}/>
                     </FormGroup>
                 
                     <FormGroup as = {Col}>
                         <FormLabel>Category</FormLabel>
-                        <FormControl className = "form_box" type = "text" name = "category" placeholder = "Food/Entertainment/Transportation" onChange = {handleChange}/>
+                        <FormControl className = "form_box" type = "text" value = {transData.category} name = "category" placeholder = "Food/Entertainment/Transportation" onChange = {handleChange}/>
                     </FormGroup>
                     
                 </Row>
@@ -68,29 +72,24 @@ const QuickAdd = (props) => {
                     
                     <FormGroup as = {Col}>
                         <FormLabel>Date</FormLabel>
-                        <FormControl className = "form_box" type = "date" name = "date" onChange = {handleChange}/>
+                        <FormControl className = "form_box" type = "date" value = {transData.date} name = "date" onChange = {handleChange}/>
                     </FormGroup>
                     
                     <Form.Group as = {Col}>
                         <Form.Label>Ledger</Form.Label>
-                        <Form.Control 
-                            as = "select" 
+                        <Form.Select 
+                            className = "form_box"
                             name = "ledger"
-                            onChange = {e => {
-                                setTransData(prevstate => ({
-                                    ...prevstate,
-                                    [e.target.name] : e.target.value
-                                }))
-                            }}>
+                            onChange = {handleChange}>
                             {props.ledgers.map((ledger) => {
                                 return <option value= {ledger.id}>{ledger.name}</option>
                             })}
-                        </Form.Control>
+                        </Form.Select>
                     </Form.Group>
                 
                 </Row>
                 <Row>
-                    <Button type = "submit" variant="danger" id = "def_btn">Create Transaction</Button>
+                    <Button type = "submit" variant="danger" id = "def_btn" className = "quick_add_button" >Create Transaction</Button>
                 </Row>
             </Form>
         </div>)

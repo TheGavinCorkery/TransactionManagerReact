@@ -23,6 +23,7 @@ const LedgerSideBar = (props) => {
     }
 
     useEffect(() => {
+        setData(false)
         getLedgerTotals()
     }, [])
 
