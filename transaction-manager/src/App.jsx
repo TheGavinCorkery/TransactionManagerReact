@@ -109,7 +109,7 @@ function App() {
             }
           }}
            />
-           <Route path = "/account_view" render = {props => <AccountOverview {...props} ledger = {clickedLedger} />} />
+           <Route path = "/ledger_view" render = {props => <AccountOverview {...props} ledger = {clickedLedger} />} />
         </Switch>
     </div>)
     : 
