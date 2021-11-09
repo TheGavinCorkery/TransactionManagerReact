@@ -10,6 +10,7 @@ import jwtDecode from 'jwt-decode'
 import LoggedHome from './components/LoggedHome/LoggedHome';
 import Register from './components/Register/Register';
 import CategoryOverview from './components/CategoryOverview/CategoryOverview';
+import AccountOverview from './components/AccountOverview/AccountOverview';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
   const [dataReady, setReady] = useState(false)
   const [modalShow, setModal] = useState(false)
   const [categoryView, setCategory] = useState(null)
+  const [clickedLedger, setClickedLedger] = useState(null)
   
 
   const loginURL = 'http://127.0.0.1:8000/api/auth/login/'
@@ -79,6 +81,12 @@ function App() {
     setCategory({'category': category, 'ledger_id': ledger})
   }
 
+  const setLedger = (id, name) => {
+    console.log(name)
+    debugger
+    setClickedLedger({id: id, ledgerName: name})
+  }
+
   return (
     dataReady  ?
        (<div className="App">
@@ -89,7 +97,7 @@ function App() {
           <Route path = "/register" render = {props => <Register {...props} />} />
 
           <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} 
-           modalShow = {modalShow} toggleModal = {toggleLedgerModal} setCategory = {setCategoryView}/>}/>
+           modalShow = {modalShow} toggleModal = {toggleLedgerModal} setCategory = {setCategoryView} setLedger = {setLedger} />}/>
 
           <Route path = "/category_view" render = {props => <CategoryOverview {...props} category = {categoryView} />} />
           <Route 
@@ -103,6 +111,7 @@ function App() {
             }
           }}
            />
+           <Route path = "/account_view" render = {props => <AccountOverview {...props} ledger = {clickedLedger} />} />
         </Switch>
     </div>)
     : 
