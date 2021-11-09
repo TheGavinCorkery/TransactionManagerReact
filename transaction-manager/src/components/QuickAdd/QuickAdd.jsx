@@ -25,15 +25,13 @@ const QuickAdd = (props) => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(props.ledgers[0].id)
         props.createTransaction(transData);
         setTransData({'date': '', 'place': '', 'total': '', 'description': '', 'category': '', 'ledger': ''});
     }
 
     useEffect(() => {
-        setData(true)
         setTransData({'date': '', 'place': '', 'total': '', 'description': '', 'category': '', 'ledger': props.ledgers[0].id})
+        setData(true)
       }, [])
 
     return ( 
@@ -82,7 +80,7 @@ const QuickAdd = (props) => {
                             name = "ledger"
                             onChange = {handleChange}>
                             {props.ledgers.map((ledger) => {
-                                return <option value= {ledger.id}>{ledger.name}</option>
+                                return <option value= {ledger.id} key = {ledger.id}>{ledger.name}</option>
                             })}
                         </Form.Select>
                     </Form.Group>

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import AccordionHeader from 'react-bootstrap/esm/AccordionHeader'
-import AccordionItem from 'react-bootstrap/esm/AccordionItem'
 import Accordion from 'react-bootstrap/esm/Accordion'
-import AccordionBody from 'react-bootstrap/esm/AccordionBody'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import './LedgerSidebar.css'
 
 const LedgerSideBar = (props) => {
 
@@ -30,18 +28,20 @@ const LedgerSideBar = (props) => {
 
     return (
         dataReady ? 
-            (<div id = "def_background"><Accordion id = "def_background">
-                {userLedgers.map((ledger) =>{
-                    return  <Accordion.Item>
-                                <Accordion.Header>{ledger.ledger_name} | {ledger.total}</Accordion.Header>      
-                                {props.categories.map((transaction) =>{
-                                    if (transaction.ledger_id == ledger.ledger_id){
-                                        return <Accordion.Body><Link to = '/category_view'><a onClick = {() => props.setCategory(transaction.category, ledger.ledger_id)}>{transaction.category}   | {transaction.total}</a></Link></Accordion.Body>
-                                    }
-                                })}
-                            </Accordion.Item>
-                })}
-            </Accordion></div>)
+            (<div id = "def_background">
+                <Accordion id = "def_background">
+                    {userLedgers.map((ledger) =>{
+                        return  <Accordion.Item key = {ledger.id}>
+                                    <Accordion.Header key = {ledger.id}>{ledger.ledger_name} | {ledger.total}</Accordion.Header>      
+                                    {props.categories.map((transaction) =>{
+                                        if (transaction.ledger_id == ledger.ledger_id){
+                                            return <Accordion.Body key = {transaction.id}><Link to = '/category_view' onClick = {() => props.setCategory(transaction.category, ledger.ledger_id)} ><p className = "catName">{transaction.category}   |    </p><p className = "catTotal">{transaction.total}</p></Link></Accordion.Body>
+                                        }
+                                    })}
+                                </Accordion.Item>
+                    })}
+                </Accordion>
+            </div>)
      : null
      );
 }

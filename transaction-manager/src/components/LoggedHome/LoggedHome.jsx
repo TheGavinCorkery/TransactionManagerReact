@@ -11,7 +11,6 @@ const LoggedHome = (props) => {
 
     const [userLedgers, setUserLedgers] = useState(null)
     const [userCategories, setUserCategories] = useState(null)
-    const [user, setUser] = useState(null)
     const [dataReady, setReady] = useState(false)
     const [transactions, setTransactions] = useState(null)
     const [clickedTrans, setClickedTrans] = useState(null)
@@ -22,7 +21,6 @@ const LoggedHome = (props) => {
 
     useEffect(() => {
         if (localStorage.getItem('token')){
-          getUserInfo()
           getUserLedgers()
           getUserTransactions()
           getUserSidebar()
@@ -45,15 +43,6 @@ const LoggedHome = (props) => {
         }catch (err){
             console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
         }
-    }
-
-    const getUserInfo = () => {
-      try{
-        const userInfo = jwtDecode(jwt)
-        setUser(userInfo)
-      }catch(err){
-        console.log("🚀 ~ file: App.jsx ~ line 47 ~ getUserInfo ~ err", err)
-      }
     }
 
     const getUserLedgers = async() => {
@@ -86,10 +75,10 @@ const LoggedHome = (props) => {
       try {
         let response = await axios.get('http://127.0.0.1:8000/api/transactions/ledgers/list', authHeader)
         setUserCategories(response.data);
-        setReady(true)
       }catch (err){
         console.log("🚀 ~ file: LoggedHome.jsx ~ line 89 ~ getUserSidebar ~ err", err)
       }
+      setReady(true)
     }
 
     const newTransaction = async(transInfo) => {
