@@ -8,6 +8,16 @@ body {
   background-color: #3DB2FF;
 }
 
+.topMargin {
+  margin-top: 2em;
+}
+
+.mx-spacing {
+  margin-right: 1em;
+  margin-left: 2em;
+  width: 85%;
+}
+
 #def_background {
   background-color: #FFEDDA;
   border-radius: 1rem;

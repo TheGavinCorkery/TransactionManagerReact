@@ -3,6 +3,8 @@
     margin: 0px;
     padding-top: 1rem;
     padding: 2px;
+    border-bottom-left-radius: .8em ;
+    border-bottom-right-radius:.8em ;
 }
 
 .nav-item {

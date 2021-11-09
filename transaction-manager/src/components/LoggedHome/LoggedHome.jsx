@@ -92,7 +92,7 @@ const LoggedHome = (props) => {
     return (
         dataReady ?
         (
-        <div className="container-fluid">
+        <div className="container-fluid topMargin">
         {showUpdateModal && <UpdateTransModal updateTrans = {updateTrans} clickedTrans = {clickedTrans} showModal = {showUpdateModal} toggleModal = {toggleUpdateModal} transaction = {clickedTrans}/>}
           {props.modalShow && <NewLedger newLedger = {createLedger} showModal = {props.modalShow} toggleModal = {props.toggleModal} />}
           <div className="row">

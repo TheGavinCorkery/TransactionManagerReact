@@ -28,7 +28,7 @@ const LedgerSideBar = (props) => {
 
     return (
         dataReady ? 
-            (<div id = "def_background">
+            (<div id = "def_background" className = "mx-spacing">
                 <Accordion id = "def_background">
                     {userLedgers.map((ledger) =>{
                         return  <Accordion.Item key = {ledger.id}>

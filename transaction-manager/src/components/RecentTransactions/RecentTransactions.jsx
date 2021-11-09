@@ -17,7 +17,7 @@ const RecentTransactions = (props) => {
 
     return (
         dataReady?
-        (<Table striped border hover id = "def_background">
+        (<Table striped border hover id = "def_background" className = "mx-spacing">
             <thead>
                 <tr>
                     <th>Date</th>
