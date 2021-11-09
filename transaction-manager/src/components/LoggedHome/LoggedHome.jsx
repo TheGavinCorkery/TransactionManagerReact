@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import jwtDecode from 'jwt-decode'
 import RecentTransactions from '../RecentTransactions/RecentTransactions'
 import LedgerSideBar from '../LedgerSidebar/LedgerSidebar'
 import NewLedger from '../NewLedger/NewLedger'
@@ -9,7 +8,6 @@ import QuickAdd from '../QuickAdd/QuickAdd'
 
 const LoggedHome = (props) => {
 
-    const [userLedgers, setUserLedgers] = useState(null)
     const [userCategories, setUserCategories] = useState(null)
     const [dataReady, setReady] = useState(false)
     const [transactions, setTransactions] = useState(null)
@@ -21,16 +19,17 @@ const LoggedHome = (props) => {
 
     useEffect(() => {
         if (localStorage.getItem('token')){
-          getUserLedgers()
           getUserTransactions()
           getUserSidebar()
+        }
+        return function cleanup(){
+          setReady(false)
         }
       }, [])
 
       const createLedger = async(ledgerValues) => {
         try{
           await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, authHeader )
-          getUserLedgers();
         }catch(err){
           console.log("🚀 ~ file: LoggedHome.jsx ~ line 28 ~ createLedger ~ err", err)
         }
@@ -42,15 +41,6 @@ const LoggedHome = (props) => {
             setTransactions(transactions.data)
         }catch (err){
             console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
-        }
-    }
-
-    const getUserLedgers = async() => {
-        try{
-            let response = await axios.get('http://127.0.0.1:8000/api/ledgers/', authHeader)
-            setUserLedgers(response.data)
-        }catch(err) {
-            console.log("🚀 ~ file: LoggedHome.jsx ~ line 56 ~ getUserLedgers ~ err", err)
         }
     }
 
@@ -100,7 +90,7 @@ const LoggedHome = (props) => {
                 <RecentTransactions transactions = {transactions} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />
             
             <div className="col-lg-8">
-              <QuickAdd createTransaction = {newTransaction} ledgers = {userLedgers}/>
+              <QuickAdd createTransaction = {newTransaction} />
             </div>
           
             </div>

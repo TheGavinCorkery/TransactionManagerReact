@@ -82,8 +82,6 @@ function App() {
   }
 
   const setLedger = (id, name) => {
-    console.log(name)
-    debugger
     setClickedLedger({id: id, ledgerName: name})
   }
 

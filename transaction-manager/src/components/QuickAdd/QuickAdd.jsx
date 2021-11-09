@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Form, FormGroup, FormLabel, FormControl, Button, Row, Col } from 'react-bootstrap'
-import FormSelect from 'react-bootstrap/FormSelect'
-import  FloatingLabel  from 'react-bootstrap/FloatingLabel'
+import axios from 'axios'
 import './QuickAdd.css'
 
 const QuickAdd = (props) => {
 
+    const [userLedgers, setUserLedgers] = useState(null)
     const [dataReady, setData] = useState(false)
     const [transData, setTransData] = useState({
                                                 'date': '',
@@ -15,6 +15,9 @@ const QuickAdd = (props) => {
                                                 'category': '',
                                                 'ledger': '',
                                             })
+
+    const jwt = localStorage.getItem('token')
+    const authHeader = {headers: {'Authorization': 'Bearer ' + jwt}}
 
     const handleChange = (event) => {
         console.log(event.target.value)
@@ -29,9 +32,19 @@ const QuickAdd = (props) => {
         setTransData({'date': '', 'place': '', 'total': '', 'description': '', 'category': '', 'ledger': ''});
     }
 
+    const getUserLedgers = async() => {
+        try{
+            let response = await axios.get('http://127.0.0.1:8000/api/ledgers/', authHeader)
+            setUserLedgers(response.data)
+            setTransData({'date': '', 'place': '', 'total': '', 'description': '', 'category': '', 'ledger': response.data[0].id})
+            setData(true)
+        }catch(err) {
+            console.log("🚀 ~ file: LoggedHome.jsx ~ line 56 ~ getUserLedgers ~ err", err)
+        }
+    }
+
     useEffect(() => {
-        setTransData({'date': '', 'place': '', 'total': '', 'description': '', 'category': '', 'ledger': props.ledgers[0].id})
-        setData(true)
+        getUserLedgers()
       }, [])
 
     return ( 
@@ -79,7 +92,7 @@ const QuickAdd = (props) => {
                             className = "form_box"
                             name = "ledger"
                             onChange = {handleChange}>
-                            {props.ledgers.map((ledger) => {
+                            {userLedgers.map((ledger) => {
                                 return <option value= {ledger.id} key = {ledger.id}>{ledger.name}</option>
                             })}
                         </Form.Select>
