@@ -4,6 +4,7 @@ import RecentTransactions from '../RecentTransactions/RecentTransactions'
 import { Pie } from 'react-chartjs-2'
 import { Offcanvas, Button, Tabs, Tab } from 'react-bootstrap'
 import CreateGoal from '../CreateGoal/CreateGoal'
+import ViewGoal from '../ViewGoal/ViewGoal'
 
 const AccountOverview = (props) => {
 
@@ -97,8 +98,8 @@ const AccountOverview = (props) => {
                             <Tab eventKey = "create" title = "Create">
                                 <CreateGoal ledger = {props.ledger} handleShow = {handleShow}/>
                             </Tab>
-                            <Tab eventKey = "edit" title = "Edit">
-
+                            <Tab eventKey = "view" title = "View">
+                                <ViewGoal ledger = {props.ledger} />
                             </Tab>
                         </Tabs>
                     </Offcanvas.Body>
