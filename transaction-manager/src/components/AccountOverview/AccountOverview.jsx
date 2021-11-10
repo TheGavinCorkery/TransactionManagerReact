@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import RecentTransactions from '../RecentTransactions/RecentTransactions'
 import { Pie } from 'react-chartjs-2'
-import { Offcanvas, Button, Tabs, Tab } from 'react-bootstrap'
+import { Offcanvas, Button, Tabs, Tab, Col } from 'react-bootstrap'
 import CreateGoal from '../CreateGoal/CreateGoal'
 import ViewGoal from '../ViewGoal/ViewGoal'
 
@@ -76,7 +76,7 @@ const AccountOverview = (props) => {
     return ( 
         dataReady ?
         (<div className="container">
-            <Button variant="danger" id = "def_btn" onClick = {handleShow}>Show Goals</Button>
+                <Button className = "goal-btn" variant="danger" id = "def_btn" onClick = {handleShow}>Show Goals</Button>
             <div className="row">
                 <div className="col-md-8" align = "center">
                     <h2>Account Overview for {props.ledger.ledgerName}</h2>
