@@ -2,6 +2,8 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import RecentTransactions from '../RecentTransactions/RecentTransactions'
 import { Pie } from 'react-chartjs-2'
+import { Offcanvas, Button, Tabs, Tab } from 'react-bootstrap'
+import CreateGoal from '../CreateGoal/CreateGoal'
 
 const AccountOverview = (props) => {
 
@@ -9,6 +11,8 @@ const AccountOverview = (props) => {
     const [dataReady, setData] = useState(false)
     const [categories, setCategories] = useState(null)
     const [chartData, setChartData] = useState(null)
+    const [showCanvas, setCanvas] = useState(false)
+    const [key, setKey] = useState("create")
 
     const jwt = localStorage.getItem('token')
     const authHeader = {headers: {'Authorization': 'Bearer ' + jwt}}
@@ -64,9 +68,14 @@ const AccountOverview = (props) => {
         })
     }
 
+    const handleShow = () => {
+        setCanvas(!showCanvas)
+    }
+
     return ( 
         dataReady ?
         (<div className="container">
+            <Button variant="danger" id = "def_btn" onClick = {handleShow}>Show Goals</Button>
             <div className="row">
                 <div className="col-md-8" align = "center">
                     <h2>Account Overview for {props.ledger.ledgerName}</h2>
@@ -79,6 +88,21 @@ const AccountOverview = (props) => {
                     data = {chartData}
                     />
                 </div>
+                <Offcanvas show = {showCanvas} onHide = {handleShow}>
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title>Goals for {props.ledger.ledgerName}</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        <Tabs id = "goal-tab-container" activeKey = {key} onSelect = {(k) => setKey(k)}>
+                            <Tab eventKey = "create" title = "Create">
+                                <CreateGoal ledger = {props.ledger} handleShow = {handleShow}/>
+                            </Tab>
+                            <Tab eventKey = "edit" title = "Edit">
+
+                            </Tab>
+                        </Tabs>
+                    </Offcanvas.Body>
+                </Offcanvas>
             </div>
         </div>)
         : (null)

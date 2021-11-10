@@ -13,6 +13,11 @@
   }
 }
 
+.create-goal {
+  margin-top: 4em;
+  width: 80%;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
