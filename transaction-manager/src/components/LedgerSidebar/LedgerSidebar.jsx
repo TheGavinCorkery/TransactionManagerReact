@@ -35,7 +35,7 @@ const LedgerSideBar = (props) => {
                                     <Accordion.Header key = {ledger.id}><Link to = "/ledger_view" onClick = {() => props.setLedger(ledger.ledger_id, ledger.ledger_name)} key = {ledger.id}>{ledger.ledger_name} | {ledger.total}</Link></Accordion.Header>      
                                     {props.categories.map((transaction) =>{
                                         if (transaction.ledger_id == ledger.ledger_id){
-                                            return <Accordion.Body key = {transaction.id}><Link to = '/category_view' onClick = {() => props.setCategory(transaction.category, ledger.ledger_id)} ><p className = "catName">{transaction.category}   |    </p><p className = "catTotal">{transaction.total}</p></Link></Accordion.Body>
+                                            return <Accordion.Body key = {transaction.id}><Link to = '/category_view' onClick = {() => props.setCategory(transaction.category, ledger.ledger_id, transaction.total)} ><p className = "catName">{transaction.category}   |    </p><p className = "catTotal">{transaction.total}</p></Link></Accordion.Body>
                                         }
                                     })}
                                 </Accordion.Item>

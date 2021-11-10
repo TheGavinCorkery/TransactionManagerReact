@@ -77,8 +77,8 @@ function App() {
     }
   }
 
-  const setCategoryView = (category, ledger) => {
-    setCategory({'category': category, 'ledger_id': ledger})
+  const setCategoryView = (category, ledger, total) => {
+    setCategory({'category': category, 'ledger_id': ledger, 'total': total})
   }
 
   const setLedger = (id, name) => {
