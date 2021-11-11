@@ -65,10 +65,10 @@ const LoggedHome = (props) => {
       try {
         let response = await axios.get('http://127.0.0.1:8000/api/transactions/ledgers/list', authHeader)
         setUserCategories(response.data);
+        setReady(true)
       }catch (err){
         console.log("🚀 ~ file: LoggedHome.jsx ~ line 89 ~ getUserSidebar ~ err", err)
       }
-      setReady(true)
     }
 
     const newTransaction = async(transInfo) => {

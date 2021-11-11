@@ -5,3 +5,17 @@
     border-radius: 2rem;
     border: 1rem solid #FFB830;
 }
+
+#home-link {
+    color: #FFB830;
+    text-decoration: none;
+    font-size: 3rem;
+}
+
+#welcome_text {
+    margin-top: 17%;
+}
+
+h1, h3 {
+    font-size: 1.5em;
+}

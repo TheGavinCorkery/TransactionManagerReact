@@ -19,8 +19,16 @@
 }
 
 .goal-btn {
+  float: left;
   margin-top: 1em;
   margin-bottom: 1em;
+  font-size: 1em;
+  padding: .5em;
+  padding-bottom: 0;
+}
+
+h2 {
+  font-size: 2em;
 }
 
 .App-header {

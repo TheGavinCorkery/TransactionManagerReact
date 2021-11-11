@@ -76,7 +76,7 @@ const AccountOverview = (props) => {
     return ( 
         dataReady ?
         (<div className="container">
-                <Button className = "goal-btn" variant="danger" id = "def_btn" onClick = {handleShow}>Show Goals</Button>
+                <Button className = "goal-btn" variant="danger" id = "def_btn" onClick = {handleShow}><i class="fa fa-bars"></i></Button>
             <div className="row">
                 <div className="col-md-8" align = "center">
                     <h2>Account Overview for {props.ledger.ledgerName}</h2>
