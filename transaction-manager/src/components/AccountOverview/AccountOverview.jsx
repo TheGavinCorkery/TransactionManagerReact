@@ -8,7 +8,6 @@ import ViewGoal from '../ViewGoal/ViewGoal'
 
 const AccountOverview = (props) => {
 
-    const [transactions, setTransactions] = useState(null)
     const [dataReady, setData] = useState(false)
     const [categories, setCategories] = useState(null)
     const [chartData, setChartData] = useState(null)
@@ -28,18 +27,8 @@ const AccountOverview = (props) => {
     }
 
     useEffect(() => {
-        getTransactions()
         getCategories()
     }, [])
-
-    const getTransactions = async() => {
-        try {
-            let response = await axios.get('http://127.0.0.1:8000/api/transactions/ledger/all/', config)
-            setTransactions(response.data)
-        } catch (error) {
-            console.log("🚀 ~ file: AccountOverview.jsx ~ line 16 ~ getTransactions ~ error", error)
-        }
-    }
     
     const getCategories = async() => {
         try {
