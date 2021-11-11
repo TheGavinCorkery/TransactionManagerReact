@@ -10,6 +10,7 @@ const CategoryOverview = (props) => {
     const [requestInfo, setInfo] = useState({'ledger': props.category.ledger_id, 'category': props.category.category})
     const [difference, setDiff] = useState(0)
     const [chartData, setChartData] = useState(null)
+    const [haveGoal, setGoal] = useState(false)
 
     const jwt = localStorage.getItem('token')
     const authHeader = {headers: {Authorization: 'Bearer ' + jwt}}
@@ -37,8 +38,11 @@ const CategoryOverview = (props) => {
     const getDifference = async() => {
         try {
             let response = await axios.get('http://127.0.0.1:8000/api/goals/category/', config)
-            console.log("Difference: ", response.data[0])
-            setDiff(response.data[0].goalAmount - props.category.total)
+            console.log("Difference: ", response.data)
+            if (response.data.length > 0) {
+                setDiff(response.data[0].goalAmount - props.category.total)
+                setGoal(true)
+            }
         } catch (error) {
             console.log("🚀 ~ file: CategoryOverview.jsx ~ line 38 ~ getDifference ~ error", error)
         }
@@ -52,13 +56,13 @@ const CategoryOverview = (props) => {
                 backgroundColor: ['#FFB830', '#FF2442']
             }]
         })
-        setReady(true)
     }
-
+    
     useEffect(() =>{
         getCategoryTransactions()
         getDifference()
         makeData()
+        setReady(true)
     }, [])
 
     return ( 
@@ -68,14 +72,15 @@ const CategoryOverview = (props) => {
                 <h3>Category overview for {requestInfo.category}</h3>
                 <div className="row">
                     <div className="col-lg-8">
-                        <RecentTransactions transactions = {transactions} />
+                        <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/category/all/'} ledger = {requestInfo.ledger} category = {requestInfo.category}/>
                     </div>
                     <div className="col-lg-4">
-                        <Pie
+                        {haveGoal ? 
+                        (<Pie
                             height = {'30%'}
                             width = {'30%'}
                             data = {chartData}
-                        />
+                        />) : null}
                     </div>
                 </div>
         </div>)

@@ -80,7 +80,7 @@ const AccountOverview = (props) => {
             <div className="row">
                 <div className="col-md-8" align = "center">
                     <h2>Account Overview for {props.ledger.ledgerName}</h2>
-                    <RecentTransactions transactions = {transactions}/>
+                    <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/ledger/all/'} ledger = {props.ledger.id} />
                 </div>
                 <div className="col-md-4">
                     <Pie

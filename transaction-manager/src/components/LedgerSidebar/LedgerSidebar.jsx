@@ -9,8 +9,6 @@ const LedgerSideBar = (props) => {
     const [dataReady, setData] = useState(false)
     const [userLedgers, setLedgers] = useState(null)
 
-    // TODO create method to get total for ledger
-
     const getLedgerTotals = async() => {
         try{
             let response = await axios.get('http://127.0.0.1:8000/api/transactions/ledgers/totals', props.auth)
@@ -29,10 +27,10 @@ const LedgerSideBar = (props) => {
     return (
         dataReady ? 
             (<div id = "def_background" className = "mx-spacing">
-                <Accordion id = "def_background">
+                <Accordion>
                     {userLedgers.map((ledger) =>{
                         return  <Accordion.Item key = {ledger.id}>
-                                    <Accordion.Header key = {ledger.id}><Link to = "/ledger_view" onClick = {() => props.setLedger(ledger.ledger_id, ledger.ledger_name)} key = {ledger.id}>{ledger.ledger_name} | {ledger.total}</Link></Accordion.Header>      
+                                    <Accordion.Header key = {ledger.id}><Link to = "/ledger_view" id = "sidebar-link" onClick = {() => props.setLedger(ledger.ledger_id, ledger.ledger_name)} key = {ledger.id}>{ledger.ledger_name} | {ledger.total}</Link></Accordion.Header>      
                                     {props.categories.map((transaction) =>{
                                         if (transaction.ledger_id == ledger.ledger_id){
                                             return <Accordion.Body key = {transaction.id}><Link to = '/category_view' onClick = {() => props.setCategory(transaction.category, ledger.ledger_id, transaction.total)} ><p className = "catName">{transaction.category}   |    </p><p className = "catTotal">{transaction.total}</p></Link></Accordion.Body>

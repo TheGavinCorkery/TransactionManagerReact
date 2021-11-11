@@ -87,7 +87,7 @@ const LoggedHome = (props) => {
           {props.modalShow && <NewLedger newLedger = {createLedger} showModal = {props.modalShow} toggleModal = {props.toggleModal} />}
           <div className="row">
             <div className = "col-lg-8">
-                <RecentTransactions transactions = {transactions} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />
+                <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/'} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />
             
             <div className="col-lg-8">
               <QuickAdd createTransaction = {newTransaction} />

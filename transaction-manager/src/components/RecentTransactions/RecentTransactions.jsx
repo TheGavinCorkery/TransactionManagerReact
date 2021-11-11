@@ -5,14 +5,35 @@ import {Table} from 'react-bootstrap'
 const RecentTransactions = (props) => {
 
     const [dataReady, setData] = useState(false)
+    const [transactions, setTrans] = useState(null)
 
     const handleClick = (trans) => {
         props.setClickedTrans(trans)
         props.toggleModal()
     }
 
+    const config = {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: {
+            ledger: props.ledger,
+            category: props.category
+        }
+    }
+
+    const getTransactions = async() => {
+        try {
+            let response = await axios.get(props.url, config)
+            setTrans(response.data)
+            setData(true)
+        } catch (error) {
+            console.log("🚀 ~ file: RecentTransactions.jsx ~ line 19 ~ getTransactions ~ error", error)
+        }
+    }
+
     useEffect(() => {
-        setData(true)
+        getTransactions()
       }, [])
 
     return (
@@ -27,7 +48,7 @@ const RecentTransactions = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {props.transactions.map((transaction) => {
+                {transactions.map((transaction) => {
                     return  <tr key = {transaction.id} onClick = {() => handleClick(transaction)}>
                             <td>{transaction.date}</td>
                             <td>{transaction.place}</td>
