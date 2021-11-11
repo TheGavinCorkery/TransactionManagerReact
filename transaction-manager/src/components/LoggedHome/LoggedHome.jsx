@@ -11,8 +11,6 @@ const LoggedHome = (props) => {
     const [userCategories, setUserCategories] = useState(null)
     const [dataReady, setReady] = useState(false)
     const [transactions, setTransactions] = useState(null)
-    const [clickedTrans, setClickedTrans] = useState(null)
-    const [showUpdateModal, setUpdateModal] = useState(false)
 
     const jwt = localStorage.getItem('token')
     const authHeader = {headers: {'Authorization': 'Bearer ' + jwt}}
@@ -44,23 +42,6 @@ const LoggedHome = (props) => {
         }
     }
 
-    const updateTrans = async(transInfo) => {
-      try {
-        await axios.put('http://127.0.0.1:8000/api/transactions/transaction/edit', transInfo, authHeader)
-        getUserTransactions()
-      }catch (err) {
-        console.log("🚀 ~ file: LoggedHome.jsx ~ line 65 ~ updateTrans ~ err", err) 
-      }
-    } 
-
-    const toggleUpdateModal = () => {
-      setUpdateModal(!showUpdateModal)
-    }
-
-    const setClickedTransaction = (trans) => {
-      setClickedTrans(trans)
-    }
-
     const getUserSidebar = async() => {
       try {
         let response = await axios.get('http://127.0.0.1:8000/api/transactions/ledgers/list', authHeader)
@@ -83,11 +64,11 @@ const LoggedHome = (props) => {
         dataReady ?
         (
         <div className="container-fluid topMargin">
-        {showUpdateModal && <UpdateTransModal updateTrans = {updateTrans} clickedTrans = {clickedTrans} showModal = {showUpdateModal} toggleModal = {toggleUpdateModal} transaction = {clickedTrans}/>}
+        
           {props.modalShow && <NewLedger newLedger = {createLedger} showModal = {props.modalShow} toggleModal = {props.toggleModal} />}
           <div className="row">
             <div className = "col-lg-8">
-                <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/'} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />
+                <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/'} setClickedTrans = {props.setClickedTrans} toggleModal = {props.toggleModal} />
             
             <div className="col-lg-8">
               <QuickAdd createTransaction = {newTransaction} />

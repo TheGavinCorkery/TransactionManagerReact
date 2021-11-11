@@ -11,6 +11,7 @@ import LoggedHome from './components/LoggedHome/LoggedHome';
 import Register from './components/Register/Register';
 import CategoryOverview from './components/CategoryOverview/CategoryOverview';
 import AccountOverview from './components/AccountOverview/AccountOverview';
+import UpdateTransModal from './components/UpdateTransModal/UpdateTransModal';
 
 function App() {
 
@@ -19,10 +20,14 @@ function App() {
   const [modalShow, setModal] = useState(false)
   const [categoryView, setCategory] = useState(null)
   const [clickedLedger, setClickedLedger] = useState(null)
+  const [clickedTrans, setClickedTrans] = useState(null)
+  const [showUpdateModal, setUpdateModal] = useState(false)
   
 
   const loginURL = 'http://127.0.0.1:8000/api/auth/login/'
   const registerURL = 'http://127.0.0.1:8000/api/auth/register/'
+  const jwt = localStorage.getItem('token')
+  const authHeader = {headers: {'Authorization': 'Bearer ' + jwt}}
 
   useEffect(() => {
     if (localStorage.getItem('token')){
@@ -85,19 +90,37 @@ function App() {
     setClickedLedger({id: id, ledgerName: name})
   }
 
+  const updateTrans = async(transInfo) => {
+    try {
+      await axios.put('http://127.0.0.1:8000/api/transactions/transaction/edit', transInfo, authHeader)
+    }catch (err) {
+      console.log("🚀 ~ file: LoggedHome.jsx ~ line 65 ~ updateTrans ~ err", err) 
+    }
+  } 
+
+  const toggleUpdateModal = () => {
+    setUpdateModal(!showUpdateModal)
+  }
+
+  const setClickedTransaction = (trans) => {
+    setClickedTrans(trans)
+  }
+
   return (
     dataReady  ?
        (<div className="App">
         <Navbar logoutUser = {logoutUser} toggleLedgerModal = {toggleLedgerModal} />
+        {showUpdateModal && <UpdateTransModal updateTrans = {updateTrans} clickedTrans = {clickedTrans} showModal = {showUpdateModal} toggleModal = {toggleUpdateModal} transaction = {clickedTrans}/>}
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
           <Route path = "/login" render = {props => <Login {...props} loginUser = {loginUser}/>} />
           <Route path = "/register" render = {props => <Register {...props} />} />
 
           <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} 
-           modalShow = {modalShow} toggleModal = {toggleLedgerModal} setCategory = {setCategoryView} setLedger = {setLedger} />}/>
+           modalShow = {modalShow} toggleModal = {toggleLedgerModal} setCategory = {setCategoryView} setLedger = {setLedger}
+           setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />}/>
 
-          <Route path = "/category_view" render = {props => <CategoryOverview {...props} category = {categoryView} />} />
+          <Route path = "/category_view" render = {props => <CategoryOverview {...props} category = {categoryView} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />} />
           <Route 
           path= "/home"
           render = {props => {
@@ -109,7 +132,7 @@ function App() {
             }
           }}
            />
-           <Route path = "/ledger_view" render = {props => <AccountOverview {...props} ledger = {clickedLedger} />} />
+           <Route path = "/ledger_view" render = {props => <AccountOverview {...props} ledger = {clickedLedger} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal}/>} />
         </Switch>
     </div>)
     : 
