@@ -5,7 +5,7 @@ import { Pie } from 'react-chartjs-2'
 
 const CategoryOverview = (props) => {
 
-    const [dataReady, setData] = useState(false)
+    const [data, setReady] = useState(false)
     const [transactions, setTransactions] = useState(null)
     const [requestInfo, setInfo] = useState({'ledger': props.category.ledger_id, 'category': props.category.category})
     const [difference, setDiff] = useState(0)
@@ -52,7 +52,7 @@ const CategoryOverview = (props) => {
                 backgroundColor: ['#FFB830', '#FF2442']
             }]
         })
-        setData(true)
+        setReady(true)
     }
 
     useEffect(() =>{
@@ -62,7 +62,7 @@ const CategoryOverview = (props) => {
     }, [])
 
     return ( 
-        dataReady ?
+        data ?
 
         (<div className = "container">
                 <h3>Category overview for {requestInfo.category}</h3>
