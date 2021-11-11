@@ -23,8 +23,10 @@ const Navbar = (props) => {
 
     return (
         <div className="row navbar">
-            <div className="col-lg-8"></div>
-            <div className="col-lg-4" align = "center">
+            <div className="col-lg-8" align = "left" id = "logo">
+              <h2>Transaction Tracker</h2>
+            </div>
+            <div className="col-lg-4" align = "right">
                 <ul>
                     {user ? 
                     

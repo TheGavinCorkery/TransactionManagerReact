@@ -37,10 +37,10 @@ const QuickAdd = (props) => {
             let response = await axios.get('http://127.0.0.1:8000/api/ledgers/', authHeader)
             setUserLedgers(response.data)
             setTransData({'date': '', 'place': '', 'total': '', 'description': '', 'category': '', 'ledger': response.data[0].id})
-            setData(true)
         }catch(err) {
             console.log("🚀 ~ file: LoggedHome.jsx ~ line 56 ~ getUserLedgers ~ err", err)
         }
+        setData(true)
     }
 
     useEffect(() => {

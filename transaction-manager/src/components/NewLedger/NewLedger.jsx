@@ -14,7 +14,7 @@ const NewLedger = (props) => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        props.toggleModal()
         props.newLedger(ledgerValues)
     }
 

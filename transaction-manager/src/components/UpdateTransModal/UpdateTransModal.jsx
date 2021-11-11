@@ -20,8 +20,7 @@ const UpdateTransModal = (props) => {
         }));
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
+    const handleSubmit = () => {
         props.updateTrans(transInfo)
         props.toggleModal()
     }

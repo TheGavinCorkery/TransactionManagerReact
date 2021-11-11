@@ -23,14 +23,16 @@ body {
 }
 
 .login_form {
-  margin-top: 10%;
+  margin-top: 5%;
   padding: 2rem;
-  padding-bottom: 15rem;
+  font-size: 1.5em;
+  margin-bottom: -25%;
 }
 
 #def_btn{
   background-color: #FF2442;
   color: black;
+  font-size: .7em;
 }
 
 .form_box {

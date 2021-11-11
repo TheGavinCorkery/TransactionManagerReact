@@ -27,6 +27,12 @@
   padding-bottom: 0;
 }
 
+#logo {
+  color: #3DB2FF;
+  font-size: .8em;
+  font-family: 'Permanent Marker', cursive;
+}
+
 h2 {
   font-size: 2em;
 }
