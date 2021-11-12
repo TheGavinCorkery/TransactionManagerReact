@@ -49,7 +49,7 @@ const QuickAdd = (props) => {
 
     return ( 
         dataReady ?
-        (<div id = "def_background" align = "center" className = "topMargin mx-spacing">
+        (<div id = "def_background" align = "center" className = "topMargin">
             <Form id = "quick_add_form" onSubmit = {handleSubmit}>
                 <h3>New Transaction</h3>
                 <hr />

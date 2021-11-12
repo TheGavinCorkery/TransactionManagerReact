@@ -5,6 +5,7 @@ import LedgerSideBar from '../LedgerSidebar/LedgerSidebar'
 import NewLedger from '../NewLedger/NewLedger'
 import UpdateTransModal from '../UpdateTransModal/UpdateTransModal'
 import QuickAdd from '../QuickAdd/QuickAdd'
+import { Hidden } from '@mui/material'
 
 const LoggedHome = (props) => {
 
@@ -63,11 +64,11 @@ const LoggedHome = (props) => {
     return (
         dataReady ?
         (
-        <div className="container-fluid topMargin">
+        <div className="container-fluid">
         
           {props.modalShow && <NewLedger newLedger = {createLedger} showModal = {props.modalShow} toggleModal = {props.toggleModal} />}
           <div className="row">
-              <div className = "col-lg-4 col-md-4 col-xs-12 col-12" id = "def_background">
+              <div className = "col-lg-4 col-md-4 col-xs-12 col-12 topMargin" style={{overflow:'hidden', minHeight: '350px', maxHeight: '600px'}} id = "def_background">
                   <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/'} setClickedTrans = {props.setClickedTrans} toggleModal = {props.toggleModal} />
               </div>
               <div className="col-lg-4 col-md-4 col-xs-12 col-12">

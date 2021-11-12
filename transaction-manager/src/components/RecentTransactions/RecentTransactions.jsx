@@ -35,7 +35,7 @@ const RecentTransactions = (props) => {
 
     const columns = [
         {field: 'date', headerName: "Date", width: 150},
-        {field: 'place', headerName: "Place", width: 200},
+        {field: 'place', headerName: "Place", width: 190},
         {field: 'category', headerName: "Category", width: 150},
         {field: 'total', headerName: "Total"}
     ]

@@ -26,8 +26,8 @@ const LedgerSideBar = (props) => {
 
     return (
         dataReady ? 
-            (<div id = "def_background" className = "mx-spacing">
-                <Accordion>
+            (<div id = "def_background" className = "topMargin">
+                <Accordion defaultActiveKey = {0} flush>
                     {userLedgers.map((ledger) =>{
                         return  <Accordion.Item key = {ledger.id}>
                                     <Accordion.Header key = {ledger.id}><Link to = "/ledger_view" id = "sidebar-link" onClick = {() => props.setLedger(ledger.ledger_id, ledger.ledger_name)} key = {ledger.id}>{ledger.ledger_name} | {ledger.total}</Link></Accordion.Header>      
