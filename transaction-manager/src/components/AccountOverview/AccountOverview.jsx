@@ -67,8 +67,8 @@ const AccountOverview = (props) => {
         (<div className="container">
                 <Button className = "goal-btn" variant="danger" id = "def_btn" onClick = {handleShow}><i class="fa fa-bars"></i></Button>
             <div className="row">
-                <div className="col-md-8" align = "center">
                     <h2>Account Overview for {props.ledger.ledgerName}</h2>
+                <div className="col-md-8" id = "def_background" align = "center">
                     <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/ledger/all/'} ledger = {props.ledger.id} setClickedTrans = {props.setClickedTrans} toggleModal = {props.toggleModal}/>
                 </div>
                 <div className="col-md-4">

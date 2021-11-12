@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import {Table} from 'react-bootstrap'
+import { DataGrid } from '@mui/x-data-grid';
 
 const RecentTransactions = (props) => {
 
@@ -32,32 +33,27 @@ const RecentTransactions = (props) => {
         }
     }
 
+    const columns = [
+        {field: 'date', headerName: "Date", width: 150},
+        {field: 'place', headerName: "Place", width: 200},
+        {field: 'category', headerName: "Category", width: 150},
+        {field: 'total', headerName: "Total"}
+    ]
+
     useEffect(() => {
         getTransactions()
       }, [])
 
     return (
         dataReady?
-        (<Table striped border hover id = "def_background" className = "mx-spacing">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Place</th>
-                    <th>Category</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {transactions.map((transaction) => {
-                    return  <tr key = {transaction.id} onClick = {() => handleClick(transaction)}>
-                            <td>{transaction.date}</td>
-                            <td>{transaction.place}</td>
-                            <td>{transaction.category}</td>
-                            <td>{transaction.total}</td>
-                            </tr>
-                })}
-            </tbody>
-        </Table>)
+        (
+            <DataGrid
+                rows={transactions}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[5,10,15]}
+            />
+        )
         :null
     )
 }

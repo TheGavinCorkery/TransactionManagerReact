@@ -47,7 +47,8 @@ const CategoryOverview = (props) => {
         (<div className = "container">
                 <h3>Category overview for {requestInfo.category}</h3>
                 <div className="row">
-                    <div className="col-lg-8">
+                    <div className="col-lg-2"></div>
+                    <div className="col-lg-6" id = "def_background">
                         <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/category/all/'} ledger = {requestInfo.ledger} category = {requestInfo.category} setClickedTrans = {props.setClickedTrans} toggleModal = {props.toggleModal}/>
                     </div>
                     <div className="col-lg-4">
