@@ -6,7 +6,6 @@ import Navbar from './components/NavBar/Navbar';
 import Login from './components/Login/Login'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
-// import {  UserProvider, UserContext } from './UserContext'
 import LoggedHome from './components/LoggedHome/LoggedHome';
 import Register from './components/Register/Register';
 import CategoryOverview from './components/CategoryOverview/CategoryOverview';
@@ -93,6 +92,7 @@ function App() {
   const updateTrans = async(transInfo) => {
     try {
       await axios.put('http://127.0.0.1:8000/api/transactions/transaction/edit', transInfo, authHeader)
+      getUserInfo()
     }catch (err) {
       console.log("🚀 ~ file: LoggedHome.jsx ~ line 65 ~ updateTrans ~ err", err) 
     }

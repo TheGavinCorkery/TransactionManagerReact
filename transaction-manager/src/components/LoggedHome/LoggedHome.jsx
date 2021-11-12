@@ -3,9 +3,7 @@ import React, { useState, useEffect } from 'react'
 import RecentTransactions from '../RecentTransactions/RecentTransactions'
 import LedgerSideBar from '../LedgerSidebar/LedgerSidebar'
 import NewLedger from '../NewLedger/NewLedger'
-import UpdateTransModal from '../UpdateTransModal/UpdateTransModal'
 import QuickAdd from '../QuickAdd/QuickAdd'
-import { Hidden } from '@mui/material'
 
 const LoggedHome = (props) => {
 
@@ -26,21 +24,20 @@ const LoggedHome = (props) => {
         }
       }, [])
 
-      const createLedger = async(ledgerValues) => {
-        try{
-          await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, authHeader )
-        }catch(err){
-          console.log("🚀 ~ file: LoggedHome.jsx ~ line 28 ~ createLedger ~ err", err)
-        }
+    const createLedger = async(ledgerValues) => {
+      try{
+        await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, authHeader )
+      }catch(err){
+        console.log("🚀 ~ file: LoggedHome.jsx ~ line 28 ~ createLedger ~ err", err)
       }
-
-      const getUserTransactions = async() => {
-        try{
-            let transactions = await axios.get('http://127.0.0.1:8000/api/transactions/', authHeader)
-            setTransactions(transactions.data)
-        }catch (err){
-            console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
-        }
+    }
+    const getUserTransactions = async() => {
+      try{
+          let transactions = await axios.get('http://127.0.0.1:8000/api/transactions/', authHeader)
+          setTransactions(transactions.data)
+      }catch (err){
+          console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
+      }
     }
 
     const getUserSidebar = async() => {
@@ -56,6 +53,7 @@ const LoggedHome = (props) => {
     const newTransaction = async(transInfo) => {
       try{
         await axios.post('http://127.0.0.1:8000/api/transactions/', transInfo ,authHeader)
+        getUserTransactions()
       }catch (err) {
         console.log("🚀 ~ file: LoggedHome.jsx ~ line 99 ~ newTransaction ~ err", err)
       }

@@ -28,6 +28,7 @@ const RecentTransactions = (props) => {
             let response = await axios.get(props.url, config)
             setTrans(response.data)
             setData(true)
+            console.log(response.data)
         } catch (error) {
             console.log("🚀 ~ file: RecentTransactions.jsx ~ line 19 ~ getTransactions ~ error", error)
         }
@@ -52,6 +53,7 @@ const RecentTransactions = (props) => {
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[5,10,15]}
+                onRowClick={(event) => {handleClick(event.row)}}
             />
         )
         :null
