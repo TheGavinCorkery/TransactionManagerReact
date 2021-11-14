@@ -9,7 +9,9 @@ import DropdownItem from 'react-bootstrap/DropdownItem'
 const Navbar = (props) => {
 
   const [user, setUser] = useState(null)
-  const [userLedgers, setUserLedgers] = useState(null)
+  const [userLedgers, setUserLedgers] = useState([])
+  const [dataReady, setReady] = useState(false)
+
   const jwt = localStorage.getItem('token')
 
   useEffect(() => {
@@ -31,6 +33,7 @@ const Navbar = (props) => {
     try {
       let response = await axios.get('http://127.0.0.1:8000/api/ledgers/', {headers: {Authorization: 'Bearer ' + jwt}})
       setUserLedgers(response.data)
+      dataReady(true)
     } catch (error) {
       console.log("🚀 ~ file: Navbar.jsx ~ line 28 ~ getUserLedgers ~ error", error)
       
@@ -45,7 +48,7 @@ const Navbar = (props) => {
               <ul>
                   {user ? 
                   
-                  <React.Fragment>
+                  <React.Fragment> 
                     <DropdownButton id = "batch-add-dropdown" className = "nav-item" title = "Batch Add">
                         {userLedgers.map((ledger) => {
                           return <DropdownItem>{ledger.name}</DropdownItem>
