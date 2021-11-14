@@ -30,10 +30,10 @@ const LedgerSideBar = (props) => {
                 <Accordion defaultActiveKey = {0} flush>
                     {userLedgers.map((ledger) =>{
                         return  <Accordion.Item key = {ledger.id}>
-                                    <Accordion.Header key = {ledger.id}><Link to = "/ledger_view" id = "sidebar-link" onClick = {() => props.setLedger(ledger.ledger_id, ledger.ledger_name)} key = {ledger.id}>{ledger.ledger_name} | {ledger.total}</Link></Accordion.Header>      
+                                    <Accordion.Header key = {ledger.id}><Link to = "/ledger_view" id = "sidebar-link" onClick = {() => props.setLedger(ledger.ledger_id, ledger.ledger_name)} key = {ledger.id}>{ledger.ledger_name} | {ledger.total.toFixed(2)}</Link></Accordion.Header>      
                                     {props.categories.map((transaction) =>{
                                         if (transaction.ledger_id == ledger.ledger_id){
-                                            return <Accordion.Body key = {transaction.id}><Link to = '/category_view' onClick = {() => props.setCategory(transaction.category, ledger.ledger_id, transaction.total)} ><p className = "catName">{transaction.category}   |    </p><p className = "catTotal">{transaction.total}</p></Link></Accordion.Body>
+                                            return <Accordion.Body key = {transaction.id}><Link to = '/category_view' onClick = {() => props.setCategory(transaction.category, ledger.ledger_id, transaction.total)} ><p className = "catName">{transaction.category}   |    </p><p className = "catTotal">{transaction.total.toFixed(2)}</p></Link></Accordion.Body>
                                         }
                                     })}
                                 </Accordion.Item>

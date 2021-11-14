@@ -35,6 +35,7 @@ const LoggedHome = (props) => {
       try{
           let transactions = await axios.get('http://127.0.0.1:8000/api/transactions/', authHeader)
           setTransactions(transactions.data)
+          dataReady(false)
       }catch (err){
           console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
       }
@@ -72,7 +73,7 @@ const LoggedHome = (props) => {
               <div className="col-lg-4 col-md-4 col-xs-12 col-12">
                 <QuickAdd createTransaction = {newTransaction} />
               </div>
-              <div className="col-lg-4 col-md-4 col-xs-12 col-12">
+              <div className="col-lg-4 col-md-4 col-xs-12 col-12" align = "center">
                   <LedgerSideBar categories = {userCategories} auth = {authHeader} setCategory = {props.setCategory} setLedger = {props.setLedger} />
               </div>
             </div>
