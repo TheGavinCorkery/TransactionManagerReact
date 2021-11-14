@@ -7,6 +7,13 @@
     border-bottom-right-radius:.8em ;
 }
 
+#batch-add-dropdown {
+    font-size: .9em;
+    background-color: #3DB2FF;
+    border-color: #3DB2FF;
+    color: black;
+}
+
 .nav-item {
     display: inline-block;
     color: black;

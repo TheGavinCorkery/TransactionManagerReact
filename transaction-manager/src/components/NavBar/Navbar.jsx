@@ -49,7 +49,7 @@ const Navbar = (props) => {
                   {user ? 
                   
                   <React.Fragment> 
-                    <DropdownButton id = "batch-add-dropdown" className = "nav-item" title = "Batch Add">
+                    <DropdownButton id = "batch-add-dropdown" className = "nav-item" title = "Batch Add" align = "end">
                         {userLedgers.map((ledger) => {
                           return <DropdownItem>{ledger.name}</DropdownItem>
                         })}
