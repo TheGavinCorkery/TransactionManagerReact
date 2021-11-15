@@ -28,7 +28,6 @@ const RecentTransactions = (props) => {
             let response = await axios.get(props.url, config)
             setTrans(response.data)
             setData(true)
-            console.log(response.data)
         } catch (error) {
             console.log("🚀 ~ file: RecentTransactions.jsx ~ line 19 ~ getTransactions ~ error", error)
         }

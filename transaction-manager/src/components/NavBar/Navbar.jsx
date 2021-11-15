@@ -33,7 +33,7 @@ const Navbar = (props) => {
     try {
       let response = await axios.get('http://127.0.0.1:8000/api/ledgers/', {headers: {Authorization: 'Bearer ' + jwt}})
       setUserLedgers(response.data)
-      dataReady(true)
+      setReady(true)
     } catch (error) {
       console.log("🚀 ~ file: Navbar.jsx ~ line 28 ~ getUserLedgers ~ error", error)
       
@@ -49,11 +49,7 @@ const Navbar = (props) => {
                   {user ? 
                   
                   <React.Fragment> 
-                    <DropdownButton id = "batch-add-dropdown" className = "nav-item" title = "Batch Add" align = "end">
-                        {userLedgers.map((ledger) => {
-                          return <DropdownItem>{ledger.name}</DropdownItem>
-                        })}
-                      </DropdownButton>
+                    <Link to ='/batch-add' className = "nav-item">Batch Add</Link>
                     <Link to = '/LandingPage' className = "nav-item">
                             <li>Home</li>
                       </Link>

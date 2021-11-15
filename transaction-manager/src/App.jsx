@@ -11,6 +11,7 @@ import Register from './components/Register/Register';
 import CategoryOverview from './components/CategoryOverview/CategoryOverview';
 import AccountOverview from './components/AccountOverview/AccountOverview';
 import UpdateTransModal from './components/UpdateTransModal/UpdateTransModal';
+import BatchAdd from './components/BatchAdd/BatchAdd';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
   const [clickedLedger, setClickedLedger] = useState(null)
   const [clickedTrans, setClickedTrans] = useState(null)
   const [showUpdateModal, setUpdateModal] = useState(false)
+  const [batchLedger, setBatchLedger] = useState(null)
   
 
   const loginURL = 'http://127.0.0.1:8000/api/auth/login/'
@@ -109,7 +111,7 @@ function App() {
   return (
     dataReady  ?
        (<div className="App">
-        <Navbar logoutUser = {logoutUser} toggleLedgerModal = {toggleLedgerModal} />
+        <Navbar logoutUser = {logoutUser} toggleLedgerModal = {toggleLedgerModal}/>
         {showUpdateModal && <UpdateTransModal updateTrans = {updateTrans} clickedTrans = {clickedTrans} showModal = {showUpdateModal} toggleModal = {toggleUpdateModal} transaction = {clickedTrans}/>}
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
@@ -121,6 +123,7 @@ function App() {
            setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />}/>
 
           <Route path = "/category_view" render = {props => <CategoryOverview {...props} category = {categoryView} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />} />
+          <Route path = "/batch-add" render = {props => <BatchAdd {...props} />} />
           <Route 
           path= "/home"
           render = {props => {

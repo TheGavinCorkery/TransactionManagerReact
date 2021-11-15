@@ -35,7 +35,7 @@ const LoggedHome = (props) => {
       try{
           let transactions = await axios.get('http://127.0.0.1:8000/api/transactions/', authHeader)
           setTransactions(transactions.data)
-          dataReady(false)
+          setReady(false)
       }catch (err){
           console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
       }
