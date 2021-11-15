@@ -19,14 +19,12 @@ const LoggedHome = (props) => {
           getUserTransactions()
           getUserSidebar()
         }
-        return function cleanup(){
-          setReady(false)
-        }
       }, [])
 
     const createLedger = async(ledgerValues) => {
       try{
-        await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, authHeader )
+        await axios.post('http://127.0.0.1:8000/api/ledgers/', ledgerValues, authHeader)
+        getUserSidebar()
       }catch(err){
         console.log("🚀 ~ file: LoggedHome.jsx ~ line 28 ~ createLedger ~ err", err)
       }
@@ -35,7 +33,7 @@ const LoggedHome = (props) => {
       try{
           let transactions = await axios.get('http://127.0.0.1:8000/api/transactions/', authHeader)
           setTransactions(transactions.data)
-          setReady(false)
+          setReady(true)
       }catch (err){
           console.log("🚀 ~ file: LoggedHome.jsx ~ line 37 ~ getUserTransactions ~ err", err)
       }
@@ -54,7 +52,6 @@ const LoggedHome = (props) => {
     const newTransaction = async(transInfo) => {
       try{
         await axios.post('http://127.0.0.1:8000/api/transactions/', transInfo ,authHeader)
-        getUserTransactions()
       }catch (err) {
         console.log("🚀 ~ file: LoggedHome.jsx ~ line 99 ~ newTransaction ~ err", err)
       }
@@ -68,7 +65,7 @@ const LoggedHome = (props) => {
           {props.modalShow && <NewLedger newLedger = {createLedger} showModal = {props.modalShow} toggleModal = {props.toggleModal} />}
           <div className="row">
               <div className = "col-lg-4 col-md-4 col-xs-12 col-12 topMargin" style={{overflow:'hidden', minHeight: '350px', maxHeight: '600px'}} id = "def_background">
-                  <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/'} setClickedTrans = {props.setClickedTrans} toggleModal = {props.toggleModal} />
+                  <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/'} setClickedTrans = {props.setClickedTrans} toggleModal = {props.toggleUpdateModal} />
               </div>
               <div className="col-lg-4 col-md-4 col-xs-12 col-12">
                 <QuickAdd createTransaction = {newTransaction} />

@@ -8,10 +8,10 @@ const BatchAdd = (props) => {
 
     const [dataReady, setReady] = useState(false)
     // Storing transactions in an array allows me to use a for each loop on my backend to save transactions
-    const transactions = useSelector((state) => state.transactions.transactions)
+    const transactions = useSelector((state) => state.transactions)
     const dispatch = useDispatch()
     
-    function addToList(transaction, event) {
+    const addToList = (transaction) => {
         dispatch(add(transaction))
     }
 

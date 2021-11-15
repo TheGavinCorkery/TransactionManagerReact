@@ -37,6 +37,10 @@ h2 {
   font-size: 2em;
 }
 
+#goal-offcanvas {
+  font-size: 1em;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

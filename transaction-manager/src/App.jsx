@@ -42,8 +42,6 @@ function App() {
 
   const registerUser = async(registerInfo) => {
     try{
-      console.log(registerInfo)
-      debugger
       await axios.post(registerURL, registerInfo)
       loginUser({'username': registerInfo.username, 'password': registerInfo.password})
     }catch (err){
@@ -95,6 +93,7 @@ function App() {
     try {
       await axios.put('http://127.0.0.1:8000/api/transactions/transaction/edit', transInfo, authHeader)
       getUserInfo()
+      window.location = '/home'
     }catch (err) {
       console.log("🚀 ~ file: LoggedHome.jsx ~ line 65 ~ updateTrans ~ err", err) 
     }
@@ -120,7 +119,7 @@ function App() {
 
           <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} 
            modalShow = {modalShow} toggleModal = {toggleLedgerModal} setCategory = {setCategoryView} setLedger = {setLedger}
-           setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />}/>
+           setClickedTrans = {setClickedTransaction} toggleUpdateModal = {toggleUpdateModal} />}/>
 
           <Route path = "/category_view" render = {props => <CategoryOverview {...props} category = {categoryView} setClickedTrans = {setClickedTransaction} toggleModal = {toggleUpdateModal} />} />
           <Route path = "/batch-add" render = {props => <BatchAdd {...props} />} />

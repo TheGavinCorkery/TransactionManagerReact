@@ -10,6 +10,7 @@ const CategoryOverview = (props) => {
     const [difference, setDiff] = useState(0)
     const [chartData, setChartData] = useState(null)
     const [haveGoal, setGoal] = useState(false)
+    const [catGoal, setCatGoal] = useState(null)
 
     const jwt = localStorage.getItem('token')
     const authHeader = {headers: {Authorization: 'Bearer ' + jwt}}
@@ -28,8 +29,9 @@ const CategoryOverview = (props) => {
         try {
             let response = await axios.get('http://127.0.0.1:8000/api/goals/category/', config)
             if (response.data.length > 0) {
-                setDiff(response.data[0].goalAmount - props.category.total)
+                setDiff((response.data[0].goalAmount - props.category.total) / 100)
                 setGoal(true)
+                setCatGoal(response.data[0].goalAmount)
             }
             setReady(true)
         } catch (error) {
@@ -48,7 +50,7 @@ const CategoryOverview = (props) => {
                 <h3>Category overview for {requestInfo.category}</h3>
                 <div className="row">
                     <div className="col-lg-2"></div>
-                    <div className="col-lg-6" id = "def_background">
+                    <div className="col-lg-6" id = "def_background" style = {{'minHeight': '500px'}}>
                         <RecentTransactions url = {'http://127.0.0.1:8000/api/transactions/category/all/'} ledger = {requestInfo.ledger} category = {requestInfo.category} setClickedTrans = {props.setClickedTrans} toggleModal = {props.toggleModal}/>
                     </div>
                     <div className="col-lg-4">
@@ -59,7 +61,7 @@ const CategoryOverview = (props) => {
                             data = {{labels: ["Spent", "Difference"],
                             datasets: [{
                                 label: "Difference in Goal",
-                                data: [props.category.total , difference],
+                                data: [((props.category.total / catGoal) * 100).toFixed(2) , (100 - (props.category.total / catGoal) * 100).toFixed(2)],
                                 backgroundColor: ['red', 'green']
                             }]}}
                         />) : 

@@ -3,8 +3,6 @@ import {Link} from 'react-router-dom'
 import './Navbar.css'
 import jwtDecode from 'jwt-decode'
 import axios from 'axios'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import DropdownItem from 'react-bootstrap/DropdownItem'
 
 const Navbar = (props) => {
 
@@ -49,7 +47,7 @@ const Navbar = (props) => {
                   {user ? 
                   
                   <React.Fragment> 
-                    <Link to ='/batch-add' className = "nav-item">Batch Add</Link>
+                    {/* <Link to ='/batch-add' className = "nav-item">Batch Add</Link> */}
                     <Link to = '/LandingPage' className = "nav-item">
                             <li>Home</li>
                       </Link>

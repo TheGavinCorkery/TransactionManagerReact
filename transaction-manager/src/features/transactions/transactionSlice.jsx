@@ -1,15 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
-    transactions: [],
-}
-
 export const transactionSlice = createSlice({
     name: "transactions",
-    initialState,
+    initialState: [{'place': 'Best Buy', 'date': '5-7-2021', 'total': '19.99', 'category': 'Business'}],
     reducers: {
         add: (state, action) => {
-            state.transactions = [...state.transactions, action.payload]
+            const newTrans = action.payload
+            return [...state, action.payload]
         }
     }
 })

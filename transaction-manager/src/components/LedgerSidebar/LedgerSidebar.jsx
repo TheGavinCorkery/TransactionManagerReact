@@ -40,7 +40,7 @@ const LedgerSideBar = (props) => {
                     })}
                 </Accordion>
             </div>)
-     : null
+     : <p>Add a ledger to get started</p>
      );
 }
  

@@ -55,7 +55,7 @@ const RecentTransactions = (props) => {
                 onRowClick={(event) => {handleClick(event.row)}}
             />
         )
-        :null
+        :<p>Add a ledger and some transactions to see the magic happen!</p>
     )
 }
  

@@ -78,9 +78,9 @@ const AccountOverview = (props) => {
                     data = {chartData}
                     />
                 </div>
-                <Offcanvas show = {showCanvas} onHide = {handleShow}>
+                <Offcanvas show = {showCanvas} onHide = {handleShow} id = "goal-offcanvas">
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>Goals for {props.ledger.ledgerName}</Offcanvas.Title>
+                        <Offcanvas.Title id = "goal-offcanvas">Goals for {props.ledger.ledgerName}</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Tabs id = "goal-tab-container" activeKey = {key} onSelect = {(k) => setKey(k)}>
