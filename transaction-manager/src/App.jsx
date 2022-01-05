@@ -22,7 +22,7 @@ function App() {
   const [clickedLedger, setClickedLedger] = useState(null)
   const [clickedTrans, setClickedTrans] = useState(null)
   const [showUpdateModal, setUpdateModal] = useState(false)
-  const [batchLedger, setBatchLedger] = useState(null)
+  // const [batchLedger, setBatchLedger] = useState(null)
   
 
   const loginURL = 'http://127.0.0.1:8000/api/auth/login/'
@@ -115,7 +115,7 @@ function App() {
         <Switch>
           <Route path = "/" exact render = {props => <Home {...props} />} />
           <Route path = "/login" render = {props => <Login {...props} loginUser = {loginUser}/>} />
-          <Route path = "/register" render = {props => <Register {...props} />} />
+          <Route path = "/register" render = {props => <Register {...props} registerUser = {registerUser} />} />
 
           <Route path = "/LandingPage" render ={props => <LoggedHome {...props} user = {user} 
            modalShow = {modalShow} toggleModal = {toggleLedgerModal} setCategory = {setCategoryView} setLedger = {setLedger}
