@@ -4,6 +4,7 @@ import {Form, FormGroup, FormControl, Button, FormLabel, Row, Col} from 'react-b
 const Register = (props) => {
 
     const [registerValues, setRegister] = useState({"first_name": null, "last_name": null,"email": null,"username": null, "password": null})
+    const passportSetup = require("./passport")
 
     const handleChange = (event) => {
         setRegister(prevstate => ({
@@ -15,6 +16,10 @@ const Register = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         props.registerUser(registerValues)
+    }
+
+    const regGoogle = () => {
+
     }
 
     return ( 
@@ -65,6 +70,7 @@ const Register = (props) => {
                                 <Button type = "submit" variant="danger" id = "def_btn">Register</Button>
                             </Form>
                     </div>
+                    <Button onClick = {regGoogle()}>Sign up with Facebook</Button>
                 </div>
                 <div className="col-md-3"></div>
             </div>
